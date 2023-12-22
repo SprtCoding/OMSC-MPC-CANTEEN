@@ -84,47 +84,50 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
 
         private void loadData()
         {
-            myDTG.DataSource = null;
-
-            ProductsTableAdapter pr = new ProductsTableAdapter();
-            // Retrieve the updated data from the database
-            ProductsDataSet.ProductsDataTable table = pr.GetData();
-            myDTG.DataSource = table;
-
-            // Create a new DataTable with only the desired columns
-            DataTable filteredTable = new DataTable();
-            filteredTable.Columns.Add("Date");
-            filteredTable.Columns.Add("Suplier");
-            filteredTable.Columns.Add("Total Amount");
-            filteredTable.Columns.Add("Purchase");
-            filteredTable.Columns.Add("Delete", typeof(Image));
-
-            // Populate the filtered DataTable with the selected columns from the original DataTable
-            foreach (ProductsDataSet.ProductsRow row in table.Rows)
+            if(myDTG != null)
             {
-                filteredTable.Rows.Add(row.DateAdded, row.Suplier, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.TotalAmount), row.Item, Properties.Resources.trash);
+                myDTG.DataSource = null;
+
+                ProductsTableAdapter pr = new ProductsTableAdapter();
+                // Retrieve the updated data from the database
+                ProductsDataSet.ProductsDataTable table = pr.GetData();
+                myDTG.DataSource = table;
+
+                // Create a new DataTable with only the desired columns
+                DataTable filteredTable = new DataTable();
+                filteredTable.Columns.Add("Date");
+                filteredTable.Columns.Add("Suplier");
+                filteredTable.Columns.Add("Total Amount");
+                filteredTable.Columns.Add("Purchase");
+                filteredTable.Columns.Add("Delete", typeof(Image));
+
+                // Populate the filtered DataTable with the selected columns from the original DataTable
+                foreach (ProductsDataSet.ProductsRow row in table.Rows)
+                {
+                    filteredTable.Rows.Add(row.DateAdded, row.Suplier, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.TotalAmount), row.Item, Properties.Resources.trash);
+                }
+
+                myDTG.DataSource = filteredTable;
+
+                // Set the column headers
+                myDTG.Columns[0].HeaderText = "Date";
+                myDTG.Columns[1].HeaderText = "Suplier";
+                myDTG.Columns[2].HeaderText = "Total Amount";
+                myDTG.Columns[3].HeaderText = "Purchase";
+                myDTG.Columns[4].HeaderText = "Action";
+
+                // Set the column widths
+                myDTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                myDTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+                // Set the padding and size of the icon
+                myDTG.Columns[4].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
+                myDTG.Columns[4].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
+                myDTG.Columns[4].Width = 30; // Adjust the width of the icon column
             }
-
-            myDTG.DataSource = filteredTable;
-
-            // Set the column headers
-            myDTG.Columns[0].HeaderText = "Date";
-            myDTG.Columns[1].HeaderText = "Suplier";
-            myDTG.Columns[2].HeaderText = "Total Amount";
-            myDTG.Columns[3].HeaderText = "Purchase";
-            myDTG.Columns[4].HeaderText = "Action";
-
-            // Set the column widths
-            myDTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            myDTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            myDTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            myDTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            myDTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
-            // Set the padding and size of the icon
-            myDTG.Columns[4].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
-            myDTG.Columns[4].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
-            myDTG.Columns[4].Width = 30; // Adjust the width of the icon column
         }
 
         private void save_btn_Click(object sender, EventArgs e)
@@ -252,7 +255,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
                         item
                     );
                 MessageBox.Show("New stocks added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                loadData();
+                loadDataStocks();
                 clear();
                 Hide();
             }
@@ -265,19 +268,19 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
 
         private void setProducts(DateTime date, DateTime expiration, string product, string suplier, double price, string category, int quantity, string quantityLevel, double totalAmount)
         {
+            // Format time as "10:00 am"
+            string formattedTime = date.ToString("hh:mm tt");
+
+            // Format date as "Jan 20, 2023"
+            string formattedDate = date.ToString("MMM dd, yyyy");
+            DateTime parsedTime = DateTime.ParseExact(formattedTime, "hh:mm tt", CultureInfo.InvariantCulture);
+            DateTime parsedDate = DateTime.ParseExact(formattedDate, "MMM dd, yyyy", CultureInfo.InvariantCulture);
+            string month = date.ToString("MMMM");
+            string days = date.ToString("dddd");
+            string year = date.ToString("yyyy");
+
             try
             {
-                // Format time as "10:00 am"
-                string formattedTime = date.ToString("hh:mm tt");
-
-                // Format date as "Jan 20, 2023"
-                string formattedDate = date.ToString("MMM dd, yyyy");
-                DateTime parsedTime = DateTime.ParseExact(formattedTime, "hh:mm tt", CultureInfo.InvariantCulture);
-                DateTime parsedDate = DateTime.ParseExact(formattedDate, "MMM dd, yyyy", CultureInfo.InvariantCulture);
-                string month = date.ToString("MMMM");
-                string days = date.ToString("dddd");
-                string year = date.ToString("yyyy");
-
                 ProductsTableAdapter products = new ProductsTableAdapter();
                 products.InsertProducts(
                         product,
@@ -303,7 +306,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
             }
             catch
             {
-                MessageBox.Show("Failed to saved " + item);
+                MessageBox.Show("Failed to saved " + product, "Failed", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -322,6 +325,83 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
             {
                 total_amount_tb.Text = "0";
                 return;
+            }
+        }
+
+        private void loadDataStocks()
+        {
+            if(myDTG != null)
+            {
+                myDTG.DataSource = null;
+
+                ProductsTableAdapter pr = new ProductsTableAdapter();
+                // Retrieve the updated data from the database
+                ProductsDataSet.ProductsDataTable table = pr.GetData();
+                myDTG.DataSource = table;
+
+                // Create a new DataTable with only the desired columns
+                DataTable filteredTable = new DataTable();
+                filteredTable.Columns.Add("Suplier");
+                filteredTable.Columns.Add("Item");
+                filteredTable.Columns.Add("Category");
+                filteredTable.Columns.Add("Quantity");
+                filteredTable.Columns.Add("Price");
+                filteredTable.Columns.Add("Date");
+                filteredTable.Columns.Add("Warning", typeof(Image));
+                filteredTable.Columns.Add("Edit", typeof(Image));
+                filteredTable.Columns.Add("Delete", typeof(Image));
+
+                // Populate the filtered DataTable with the selected columns from the original DataTable
+                foreach (ProductsDataSet.ProductsRow row in table.Rows)
+                {
+                    if (row.CurrentStocks < 10)
+                    {
+                        filteredTable.Rows.Add(row.Suplier, row.Item, row.Category, row.CurrentStocks, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price), row.DateAdded, Properties.Resources.warning_small, Properties.Resources.edit_small, Properties.Resources.trash);
+                    }
+                    else
+                    {
+                        filteredTable.Rows.Add(row.Suplier, row.Item, row.Category, row.CurrentStocks, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price), row.DateAdded, Properties.Resources.badge_check, Properties.Resources.badge_check, Properties.Resources.trash);
+                    }
+                }
+
+                myDTG.DataSource = filteredTable;
+
+                // Set the column headers
+                myDTG.Columns[0].HeaderText = "Suplier";
+                myDTG.Columns[1].HeaderText = "Item";
+                myDTG.Columns[2].HeaderText = "Category";
+                myDTG.Columns[3].HeaderText = "Quantity";
+                myDTG.Columns[4].HeaderText = "Price";
+                myDTG.Columns[5].HeaderText = "Date";
+                myDTG.Columns[6].HeaderText = "Warning";
+                myDTG.Columns[7].HeaderText = "Edit";
+                myDTG.Columns[8].HeaderText = "Delete";
+
+                // Set the column widths
+                myDTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                myDTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+                // Set the padding and size of the icon
+                myDTG.Columns[6].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
+                myDTG.Columns[6].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
+                myDTG.Columns[6].Width = 30; // Adjust the width of the icon column
+
+                // Set the padding and size of the icon
+                myDTG.Columns[7].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
+                myDTG.Columns[7].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
+                myDTG.Columns[7].Width = 30; // Adjust the width of the icon column
+
+                // Set the padding and size of the icon
+                myDTG.Columns[8].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
+                myDTG.Columns[8].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
+                myDTG.Columns[8].Width = 30; // Adjust the width of the icon column
             }
         }
     }

@@ -32,8 +32,11 @@
             label1 = new Label();
             products_gb = new GroupBox();
             tableLayoutPanel1 = new TableLayoutPanel();
-            panel5 = new Panel();
+            panel6 = new Panel();
             price_tb = new Bunifu.Framework.UI.BunifuMaterialTextbox();
+            label7 = new Label();
+            panel5 = new Panel();
+            unit_price = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             label6 = new Label();
             panel4 = new Panel();
             expiration_dtp = new DateTimePicker();
@@ -51,6 +54,7 @@
             update_btn = new Bunifu.Framework.UI.BunifuFlatButton();
             products_gb.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
+            panel6.SuspendLayout();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
             panel1.SuspendLayout();
@@ -88,6 +92,7 @@
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(panel6, 0, 2);
             tableLayoutPanel1.Controls.Add(panel5, 0, 2);
             tableLayoutPanel1.Controls.Add(panel4, 1, 1);
             tableLayoutPanel1.Controls.Add(panel1, 0, 0);
@@ -105,15 +110,15 @@
             tableLayoutPanel1.Size = new Size(975, 334);
             tableLayoutPanel1.TabIndex = 0;
             // 
-            // panel5
+            // panel6
             // 
-            panel5.Controls.Add(price_tb);
-            panel5.Controls.Add(label6);
-            panel5.Location = new Point(4, 225);
-            panel5.Margin = new Padding(4, 3, 4, 3);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(479, 106);
-            panel5.TabIndex = 6;
+            panel6.Controls.Add(price_tb);
+            panel6.Controls.Add(label7);
+            panel6.Location = new Point(4, 225);
+            panel6.Margin = new Padding(4, 3, 4, 3);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(479, 106);
+            panel6.TabIndex = 7;
             // 
             // price_tb
             // 
@@ -139,6 +144,50 @@
             price_tb.TabIndex = 4;
             price_tb.TextAlign = HorizontalAlignment.Left;
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Poppins", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Location = new Point(19, 27);
+            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(48, 25);
+            label7.TabIndex = 3;
+            label7.Text = "Price";
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(unit_price);
+            panel5.Controls.Add(label6);
+            panel5.Location = new Point(491, 225);
+            panel5.Margin = new Padding(4, 3, 4, 3);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(479, 106);
+            panel5.TabIndex = 6;
+            // 
+            // unit_price
+            // 
+            unit_price.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            unit_price.AutoCompleteMode = AutoCompleteMode.None;
+            unit_price.AutoCompleteSource = AutoCompleteSource.None;
+            unit_price.characterCasing = CharacterCasing.Normal;
+            unit_price.Font = new Font("Poppins", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            unit_price.ForeColor = Color.FromArgb(64, 64, 64);
+            unit_price.HintForeColor = Color.Empty;
+            unit_price.HintText = "";
+            unit_price.isPassword = false;
+            unit_price.LineFocusedColor = Color.FromArgb(250, 215, 100);
+            unit_price.LineIdleColor = Color.Gray;
+            unit_price.LineMouseHoverColor = Color.FromArgb(250, 215, 100);
+            unit_price.LineThickness = 3;
+            unit_price.Location = new Point(16, 51);
+            unit_price.Margin = new Padding(6, 7, 6, 7);
+            unit_price.MaxLength = 32767;
+            unit_price.Name = "unit_price";
+            unit_price.Size = new Size(445, 31);
+            unit_price.TabIndex = 4;
+            unit_price.TextAlign = HorizontalAlignment.Left;
+            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -146,9 +195,9 @@
             label6.Location = new Point(19, 27);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
-            label6.Size = new Size(48, 25);
+            label6.Size = new Size(80, 25);
             label6.TabIndex = 3;
-            label6.Text = "Price";
+            label6.Text = "Unit Price";
             // 
             // panel4
             // 
@@ -276,7 +325,7 @@
             category_cbx.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             category_cbx.Font = new Font("Poppins", 10F, FontStyle.Regular, GraphicsUnit.Point);
             category_cbx.FormattingEnabled = true;
-            category_cbx.Items.AddRange(new object[] { "Softdrinks", "Snacks", "Toiletries", "Liquer" });
+            category_cbx.Items.AddRange(new object[] { "School Supplies", "Ice Cream", "Drinks", "Groceries" });
             category_cbx.Location = new Point(17, 50);
             category_cbx.Name = "category_cbx";
             category_cbx.Size = new Size(444, 31);
@@ -301,6 +350,7 @@
             save_btn.BackgroundImageLayout = ImageLayout.Stretch;
             save_btn.BorderRadius = 5;
             save_btn.ButtonText = "Save";
+            save_btn.Cursor = Cursors.Hand;
             save_btn.DisabledColor = Color.Gray;
             save_btn.Iconcolor = Color.Transparent;
             save_btn.Iconimage = null;
@@ -337,6 +387,7 @@
             update_btn.BackgroundImageLayout = ImageLayout.Stretch;
             update_btn.BorderRadius = 5;
             update_btn.ButtonText = "Update";
+            update_btn.Cursor = Cursors.Hand;
             update_btn.DisabledColor = Color.Gray;
             update_btn.Iconcolor = Color.Transparent;
             update_btn.Iconimage = null;
@@ -383,6 +434,8 @@
             StartPosition = FormStartPosition.CenterScreen;
             products_gb.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             panel4.ResumeLayout(false);
@@ -405,7 +458,7 @@
         private Panel panel1;
         private Label label2;
         private Panel panel5;
-        private Bunifu.Framework.UI.BunifuMaterialTextbox price_tb;
+        private Bunifu.Framework.UI.BunifuMaterialTextbox unit_price;
         private Label label6;
         private Panel panel4;
         private Label label5;
@@ -419,5 +472,8 @@
         private DateTimePicker expiration_dtp;
         private ComboBox item_name_cbx;
         private Bunifu.Framework.UI.BunifuFlatButton update_btn;
+        private Panel panel6;
+        private Bunifu.Framework.UI.BunifuMaterialTextbox price_tb;
+        private Label label7;
     }
 }

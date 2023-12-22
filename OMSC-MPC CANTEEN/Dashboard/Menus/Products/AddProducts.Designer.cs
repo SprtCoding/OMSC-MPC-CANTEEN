@@ -198,7 +198,6 @@
             total_amount_tb.AutoCompleteMode = AutoCompleteMode.None;
             total_amount_tb.AutoCompleteSource = AutoCompleteSource.None;
             total_amount_tb.characterCasing = CharacterCasing.Normal;
-            total_amount_tb.Enabled = false;
             total_amount_tb.Font = new Font("Poppins", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             total_amount_tb.ForeColor = Color.FromArgb(64, 64, 64);
             total_amount_tb.HintForeColor = Color.Empty;

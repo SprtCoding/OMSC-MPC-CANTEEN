@@ -1,5 +1,4 @@
 ﻿using OMSC_MPC_CANTEEN.UserData.DataSets;
-using OMSC_MPC_CANTEEN.UserData.DataSets.DailySalesDataSetTableAdapters;
 using OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters;
 using OMSC_MPC_CANTEEN.UserData.DataSets.ProductsDataSetTableAdapters;
 using System;
@@ -35,8 +34,8 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
 
         private void getProfit()
         {
-            InventoryProductsTableAdapter adapter = new InventoryProductsTableAdapter();
-            decimal profit = decimal.Parse(adapter.getProfitValue().GetValueOrDefault().ToString());
+            InventoryProducts1TableAdapter adapter = new InventoryProducts1TableAdapter();
+            decimal profit = decimal.Parse(adapter.getProfits().GetValueOrDefault().ToString());
             profit_value.Text = FormatDecimalNumber(profit);
         }
 
@@ -49,7 +48,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
 
         private void getTotalSales()
         {
-            DailySalesTableAdapter dailySalesTableAdapter = new DailySalesTableAdapter();
+            InventoryProducts1TableAdapter adapter = new InventoryProducts1TableAdapter();
 
             string? sort = sort_cbx.Text;
 
@@ -63,12 +62,12 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
 
                 if (showAllData)
                 {
-                    double sales = Convert.ToDouble(dailySalesTableAdapter.getAllSales().GetValueOrDefault().ToString());
+                    double sales = Convert.ToDouble(adapter.getCashSalesAll().GetValueOrDefault().ToString());
                     sales_lbl.Text = FormatNumber(sales);
                 }
                 else
                 {
-                    double sales = Convert.ToDouble(dailySalesTableAdapter.getTotalSalesAll(selectedSort).GetValueOrDefault().ToString());
+                    double sales = Convert.ToDouble(adapter.getCashSalesByMonth(selectedSort).GetValueOrDefault().ToString());
                     sales_lbl.Text = FormatNumber(sales);
                 }
             }
@@ -77,7 +76,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                 // Get the selected month and year from the combo boxes
                 string? selectedSort = sort_select_cbx.Text;
 
-                double sales = Convert.ToDouble(dailySalesTableAdapter.getTotalSalesYear(selectedSort).GetValueOrDefault().ToString());
+                double sales = Convert.ToDouble(adapter.getCashSalesByYear(selectedSort).GetValueOrDefault().ToString());
                 sales_lbl.Text = FormatNumber(sales);
             }
 
@@ -85,11 +84,10 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
 
         private void loadChart()
         {
-            DailySalesTableAdapter dailySalesTableAdapter = new DailySalesTableAdapter();
+            InventoryProducts1TableAdapter adapter = new InventoryProducts1TableAdapter();
 
             // Clear existing series from the chart
             dashboard_chart.Series.Clear();
-            pie_chart.Series.Clear();
 
             string? sort = sort_cbx.Text;
 
@@ -109,12 +107,12 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                 if (showAllData)
                 {
                     // When "All" is selected, retrieve data for all months
-                    DataTable allMonthsData = dailySalesTableAdapter.GetDistinctMonthsAll();
+                    DataTable allMonthsData = adapter.GetDistinctMonths();
 
                     foreach (DataRow row in allMonthsData.Rows)
                     {
-                        string? month = row["MonthOfSales"].ToString();
-                        double sales = (double)dailySalesTableAdapter.getTotalSalesAll(month).GetValueOrDefault();
+                        string? month = row["MonthsAdded"].ToString();
+                        double sales = (double)adapter.getCashSalesByMonth(month).GetValueOrDefault();
                         monthSales.Add(month, sales);
                     }
 
@@ -123,12 +121,12 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                 else
                 {
                     // Retrieve data for the selected month and year
-                    DataTable selectedMonthData = dailySalesTableAdapter.GetDistinctMonths(selectedMonth);
+                    DataTable selectedMonthData = adapter.GetDistinctMonthsByMonth(selectedMonth);
 
                     foreach (DataRow row in selectedMonthData.Rows)
                     {
-                        string? month = row["MonthOfSales"].ToString();
-                        double sales = (double)dailySalesTableAdapter.getTotalSalesAll(month).GetValueOrDefault();
+                        string? month = row["MonthsAdded"].ToString();
+                        double sales = (double)adapter.getCashSalesByMonth(month).GetValueOrDefault();
                         monthSales.Add(month, sales);
                     }
 
@@ -162,28 +160,6 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                 {
                     dashboard_chart.Series["Monthly Sales"].Points.AddXY(entry.Key, entry.Value);
                 }
-
-                // Add a new series for the pie_chart
-                pie_chart.Series.Add("Monthly Sales");
-
-                // Set the font for the axis titles
-                pie_chart.ChartAreas[0].AxisX.TitleFont = new Font("Century Gothic", 10, FontStyle.Italic);
-                pie_chart.ChartAreas[0].AxisY.TitleFont = new Font("Century Gothic", 10, FontStyle.Italic);
-
-                // Set the font for the axis labels
-                pie_chart.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Century Gothic", 8, FontStyle.Italic);
-                pie_chart.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Century Gothic", 8, FontStyle.Italic);
-
-                // Set the font for the legend
-                pie_chart.Legends[0].Font = new Font("Century Gothic", 6, FontStyle.Bold);
-
-                pie_chart.Series["Monthly Sales"].ChartType = SeriesChartType.Doughnut;
-
-                // Add data points for each month to the pie_chart
-                foreach (var entry in sortedMonthSales)
-                {
-                    pie_chart.Series["Monthly Sales"].Points.AddXY(entry.Key, entry.Value);
-                }
             }
             else if (sort == "Year")
             {
@@ -194,12 +170,12 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                 Dictionary<string, double> yearSales = new Dictionary<string, double>();
 
                 // When "All" is selected, retrieve data for all months
-                DataTable allYearsData = dailySalesTableAdapter.GetDistinctMonthYear(selectedYear);
+                DataTable allYearsData = adapter.GetDistinctMonthsByYear(selectedYear);
 
                 foreach (DataRow row in allYearsData.Rows)
                 {
-                    string? month = row["MonthOfSales"].ToString();
-                    double sales = (double)dailySalesTableAdapter.getTotalSalesAll(month).GetValueOrDefault();
+                    string? month = row["MonthsAdded"].ToString();
+                    double sales = (double)adapter.getCashSalesByMonth(month).GetValueOrDefault();
                     yearSales.Add(month, sales);
                 }
 
@@ -214,16 +190,6 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                 foreach (var entry in sortedMonthSales)
                 {
                     dashboard_chart.Series["Yearly Sales"].Points.AddXY(entry.Key, entry.Value);
-                }
-
-                // Add a new series for the pie_chart
-                pie_chart.Series.Add("Yearly Sales");
-                pie_chart.Series["Yearly Sales"].ChartType = SeriesChartType.Doughnut;
-
-                // Add data points for each month to the pie_chart
-                foreach (var entry in sortedMonthSales)
-                {
-                    pie_chart.Series["Yearly Sales"].Points.AddXY(entry.Key, entry.Value);
                 }
             }
 

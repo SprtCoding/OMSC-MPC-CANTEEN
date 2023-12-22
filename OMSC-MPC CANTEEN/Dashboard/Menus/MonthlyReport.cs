@@ -1,5 +1,4 @@
-﻿using OMSC_MPC_CANTEEN.UserData.DataSets.DailySalesDataSetTableAdapters;
-using OMSC_MPC_CANTEEN.UserData.DataSets.ProductsDataSetTableAdapters;
+﻿using OMSC_MPC_CANTEEN.UserData.DataSets.ProductsDataSetTableAdapters;
 using OMSC_MPC_CANTEEN.UserData.DataSets;
 using System;
 using System.Collections.Generic;
@@ -13,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DGVPrinterHelper;
 using OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters;
+using OMSC_MPC_CANTEEN.UserData.DataSets.DailySalesReportDataSetTableAdapters;
 
 namespace OMSC_MPC_CANTEEN.Dashboard.Menus
 {
@@ -31,111 +31,128 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
         {
             MONTHLY_REPORT_DTG.DataSource = null;
 
-            InventoryProductsTableAdapter pr = new InventoryProductsTableAdapter();
-            // Retrieve the updated data from the database
-            InvProduct.InventoryProductsDataTable dt = pr.GetMonthlyReport(year, month);
-            MONTHLY_REPORT_DTG.DataSource = dt;
+            DailySalesReport1TableAdapter adapter = new DailySalesReport1TableAdapter();
+            DailySalesReportDataSet.DailySalesReport1DataTable myDt = adapter.GetSalesReportByMonth(year, month);
+
+            MONTHLY_REPORT_DTG.DataSource = myDt;
 
             // Create a new DataTable with only the desired columns
             DataTable filteredTable = new DataTable();
+            filteredTable.Columns.Add("ID");
             filteredTable.Columns.Add("Description");
             filteredTable.Columns.Add("Total Inventory");
             filteredTable.Columns.Add("Inventory End");
             filteredTable.Columns.Add("Quantity Sold");
             filteredTable.Columns.Add("Unit Price");
             filteredTable.Columns.Add("Cash Sales");
+            filteredTable.Columns.Add("Category");
+            filteredTable.Columns.Add("Profit");
 
             // Populate the filtered DataTable with the selected columns from the original DataTable
-            foreach (InvProduct.InventoryProductsRow row in dt.Rows)
+            foreach (DailySalesReportDataSet.DailySalesReport1Row row in myDt.Rows)
             {
-                // Fetch the quantity sold for the current item from the "DailySales" table
-                DailySalesTableAdapter dailySales = new DailySalesTableAdapter();
-
-                double cashSales = double.Parse(dailySales.getCashSales(row.Item).GetValueOrDefault().ToString());
-
-                double cashSalesMonth = double.Parse(dailySales.getTotalSalesAll(month).GetValueOrDefault().ToString());
-
-                total_sales_lbl.Text = string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", cashSalesMonth);
-
-                if (row.QuantitySold != 0)
-                {
-                    filteredTable.Rows.Add(row.Item, row.TotalStocks, row.CurrentStocks, row.QuantitySold, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price), string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", cashSales));
-                }
-
+                filteredTable.Rows.Add(
+                        row.ID,
+                        row.Item,
+                        row.TotalInventory,
+                        row.InventoryEnd,
+                        row.QuantitySold,
+                        row.UnitPrice,
+                        row.CashSales,
+                        row.Category,
+                        row.Profit
+                    );
             }
 
             MONTHLY_REPORT_DTG.DataSource = filteredTable;
 
             // Set the column headers
-            MONTHLY_REPORT_DTG.Columns[0].HeaderText = "Description";
-            MONTHLY_REPORT_DTG.Columns[1].HeaderText = "Total Inventory";
-            MONTHLY_REPORT_DTG.Columns[2].HeaderText = "Inventory End";
-            MONTHLY_REPORT_DTG.Columns[3].HeaderText = "Quantity Sold";
-            MONTHLY_REPORT_DTG.Columns[4].HeaderText = "Unit Price";
-            MONTHLY_REPORT_DTG.Columns[5].HeaderText = "Cash Sales";
+            MONTHLY_REPORT_DTG.Columns[0].HeaderText = "ID";
+            MONTHLY_REPORT_DTG.Columns[1].HeaderText = "Description";
+            MONTHLY_REPORT_DTG.Columns[2].HeaderText = "Total Inventory";
+            MONTHLY_REPORT_DTG.Columns[3].HeaderText = "Inventory End";
+            MONTHLY_REPORT_DTG.Columns[4].HeaderText = "Quantity Sold";
+            MONTHLY_REPORT_DTG.Columns[5].HeaderText = "Unit Price";
+            MONTHLY_REPORT_DTG.Columns[6].HeaderText = "Cash Sales";
+            MONTHLY_REPORT_DTG.Columns[7].HeaderText = "Category";
+            MONTHLY_REPORT_DTG.Columns[8].HeaderText = "Profit";
 
             // Set the column widths
-            MONTHLY_REPORT_DTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            MONTHLY_REPORT_DTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MONTHLY_REPORT_DTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            MONTHLY_REPORT_DTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             MONTHLY_REPORT_DTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             MONTHLY_REPORT_DTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             MONTHLY_REPORT_DTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             MONTHLY_REPORT_DTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MONTHLY_REPORT_DTG.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MONTHLY_REPORT_DTG.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MONTHLY_REPORT_DTG.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            MONTHLY_REPORT_DTG.Columns[0].Visible = false;
         }
 
         public void loadAllData()
         {
             MONTHLY_REPORT_DTG.DataSource = null;
 
-            InventoryProductsTableAdapter pr = new InventoryProductsTableAdapter();
-            // Retrieve the updated data from the database
-            InvProduct.InventoryProductsDataTable dt = pr.GetData();
-            MONTHLY_REPORT_DTG.DataSource = dt;
+            DailySalesReport1TableAdapter adapter = new DailySalesReport1TableAdapter();
+            DailySalesReportDataSet.DailySalesReport1DataTable myDt = adapter.GetData();
+
+            MONTHLY_REPORT_DTG.DataSource = myDt;
 
             // Create a new DataTable with only the desired columns
             DataTable filteredTable = new DataTable();
+            filteredTable.Columns.Add("ID");
             filteredTable.Columns.Add("Description");
             filteredTable.Columns.Add("Total Inventory");
             filteredTable.Columns.Add("Inventory End");
             filteredTable.Columns.Add("Quantity Sold");
             filteredTable.Columns.Add("Unit Price");
             filteredTable.Columns.Add("Cash Sales");
+            filteredTable.Columns.Add("Category");
+            filteredTable.Columns.Add("Profit");
 
             // Populate the filtered DataTable with the selected columns from the original DataTable
-            foreach (InvProduct.InventoryProductsRow row in dt.Rows)
+            foreach (DailySalesReportDataSet.DailySalesReport1Row row in myDt.Rows)
             {
-                // Fetch the quantity sold for the current item from the "DailySales" table
-                DailySalesTableAdapter dailySales = new DailySalesTableAdapter();
-
-                double cashSales = double.Parse(dailySales.getCashSales(row.Item).GetValueOrDefault().ToString());
-
-                double totalCashSales = double.Parse(dailySales.getAllSales().GetValueOrDefault().ToString());
-
-                total_sales_lbl.Text = string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", totalCashSales);
-
-                if (row.QuantitySold != 0)
-                {
-                    filteredTable.Rows.Add(row.Item, row.TotalStocks, row.CurrentStocks, row.QuantitySold, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price), string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", cashSales));
-                }
+                filteredTable.Rows.Add(
+                        row.ID,
+                        row.Item,
+                        row.TotalInventory,
+                        row.InventoryEnd,
+                        row.QuantitySold,
+                        row.UnitPrice,
+                        row.CashSales,
+                        row.Category,
+                        row.Profit
+                    );
             }
 
             MONTHLY_REPORT_DTG.DataSource = filteredTable;
 
             // Set the column headers
-            MONTHLY_REPORT_DTG.Columns[0].HeaderText = "Description";
-            MONTHLY_REPORT_DTG.Columns[1].HeaderText = "Total Inventory";
-            MONTHLY_REPORT_DTG.Columns[2].HeaderText = "Inventory End";
-            MONTHLY_REPORT_DTG.Columns[3].HeaderText = "Quantity Sold";
-            MONTHLY_REPORT_DTG.Columns[4].HeaderText = "Unit Price";
-            MONTHLY_REPORT_DTG.Columns[5].HeaderText = "Cash Sales";
+            MONTHLY_REPORT_DTG.Columns[0].HeaderText = "ID";
+            MONTHLY_REPORT_DTG.Columns[1].HeaderText = "Description";
+            MONTHLY_REPORT_DTG.Columns[2].HeaderText = "Total Inventory";
+            MONTHLY_REPORT_DTG.Columns[3].HeaderText = "Inventory End";
+            MONTHLY_REPORT_DTG.Columns[4].HeaderText = "Quantity Sold";
+            MONTHLY_REPORT_DTG.Columns[5].HeaderText = "Unit Price";
+            MONTHLY_REPORT_DTG.Columns[6].HeaderText = "Cash Sales";
+            MONTHLY_REPORT_DTG.Columns[7].HeaderText = "Category";
+            MONTHLY_REPORT_DTG.Columns[8].HeaderText = "Profit";
 
             // Set the column widths
-            MONTHLY_REPORT_DTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            MONTHLY_REPORT_DTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MONTHLY_REPORT_DTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            MONTHLY_REPORT_DTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             MONTHLY_REPORT_DTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             MONTHLY_REPORT_DTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             MONTHLY_REPORT_DTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             MONTHLY_REPORT_DTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MONTHLY_REPORT_DTG.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MONTHLY_REPORT_DTG.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MONTHLY_REPORT_DTG.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            MONTHLY_REPORT_DTG.Columns[0].Visible = false;
         }
 
         private void year_select_cbx_SelectedIndexChanged(object sender, EventArgs e)

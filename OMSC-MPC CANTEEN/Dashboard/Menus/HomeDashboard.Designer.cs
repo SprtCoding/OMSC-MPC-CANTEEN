@@ -32,8 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeDashboard));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             label1 = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel2 = new Panel();
@@ -64,8 +62,6 @@
             bunifuElipse4 = new Bunifu.Framework.UI.BunifuElipse(components);
             tableLayoutPanel3 = new TableLayoutPanel();
             panel3 = new Panel();
-            panel4 = new Panel();
-            pie_chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -78,8 +74,6 @@
             ((System.ComponentModel.ISupportInitialize)dashboard_chart).BeginInit();
             tableLayoutPanel3.SuspendLayout();
             panel3.SuspendLayout();
-            panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pie_chart).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -395,7 +389,7 @@
             dashboard_chart.Location = new Point(0, 0);
             dashboard_chart.Margin = new Padding(2);
             dashboard_chart.Name = "dashboard_chart";
-            dashboard_chart.Size = new Size(496, 223);
+            dashboard_chart.Size = new Size(743, 223);
             dashboard_chart.TabIndex = 3;
             // 
             // bunifuElipse1
@@ -421,11 +415,9 @@
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutPanel3.ColumnCount = 2;
+            tableLayoutPanel3.ColumnCount = 1;
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 67.01323F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 32.9867668F));
             tableLayoutPanel3.Controls.Add(panel3, 0, 0);
-            tableLayoutPanel3.Controls.Add(panel4, 1, 0);
             tableLayoutPanel3.Location = new Point(8, 326);
             tableLayoutPanel3.Margin = new Padding(2);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -441,36 +433,8 @@
             panel3.Location = new Point(2, 2);
             panel3.Margin = new Padding(2);
             panel3.Name = "panel3";
-            panel3.Size = new Size(496, 223);
+            panel3.Size = new Size(743, 223);
             panel3.TabIndex = 0;
-            // 
-            // panel4
-            // 
-            panel4.Controls.Add(pie_chart);
-            panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(502, 2);
-            panel4.Margin = new Padding(2);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(243, 223);
-            panel4.TabIndex = 1;
-            // 
-            // pie_chart
-            // 
-            chartArea2.AxisX.TitleFont = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            chartArea2.AxisX2.TitleFont = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            chartArea2.AxisY.TitleFont = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            chartArea2.AxisY2.TitleFont = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            chartArea2.Name = "ChartArea1";
-            pie_chart.ChartAreas.Add(chartArea2);
-            pie_chart.Dock = DockStyle.Fill;
-            legend2.BackColor = Color.FromArgb(248, 195, 23);
-            legend2.Name = "Legend1";
-            pie_chart.Legends.Add(legend2);
-            pie_chart.Location = new Point(0, 0);
-            pie_chart.Margin = new Padding(2);
-            pie_chart.Name = "pie_chart";
-            pie_chart.Size = new Size(243, 223);
-            pie_chart.TabIndex = 4;
             // 
             // HomeDashboard
             // 
@@ -501,8 +465,6 @@
             ((System.ComponentModel.ISupportInitialize)dashboard_chart).EndInit();
             tableLayoutPanel3.ResumeLayout(false);
             panel3.ResumeLayout(false);
-            panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pie_chart).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -534,8 +496,6 @@
         private PictureBox pictureBox2;
         private TableLayoutPanel tableLayoutPanel3;
         private Panel panel3;
-        private Panel panel4;
-        private System.Windows.Forms.DataVisualization.Charting.Chart pie_chart;
         private ComboBox sort_select_cbx;
         private Label profit_value;
         private Label label7;

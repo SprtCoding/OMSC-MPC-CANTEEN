@@ -1,5 +1,4 @@
 ﻿using OMSC_MPC_CANTEEN.Loaders;
-using OMSC_MPC_CANTEEN.UserData.DataSets.DailySalesDataSetTableAdapters;
 using OMSC_MPC_CANTEEN.UserData.DataSets;
 using OMSC_MPC_CANTEEN.UserData.DataSets.ProductsDataSetTableAdapters;
 using System;
@@ -56,7 +55,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
             try
             {
                 int newStocks = int.Parse(current_stocks_tb.Text);
-                decimal newAmount = decimal.Parse(price_tb.Text);
+                decimal newAmount = decimal.Parse(unit_price.Text);
                 int totalNewStocks = 0, totalStocks = 0, totalProductsStocks = 0;
                 decimal totalNewAmount = 0, price = 0;
 
@@ -147,6 +146,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
                 int currentStocks = int.Parse(current_stocks_tb.Text);
                 DateTime expiration = expiration_dtp.Value;
                 double price = double.Parse(price_tb.Text);
+                double unitPrice = double.Parse(unit_price.Text);
                 string category = category_cbx.Text;
 
                 if (String.IsNullOrEmpty(item))
@@ -161,10 +161,16 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
                     current_stocks_tb.Focus();
                     return;
                 }
-                else if (String.IsNullOrEmpty(price_tb.Text))
+                else if (String.IsNullOrEmpty(unit_price.Text))
                 {
                     MessageBox.Show("Price is empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    price_tb.Focus();
+                    unit_price.Focus();
+                    return;
+                }
+                else if (String.IsNullOrEmpty(price_tb.Text))
+                {
+                    MessageBox.Show("Unit Price is empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    unit_price.Focus();
                     return;
                 }
                 else if (String.IsNullOrEmpty(category))
@@ -179,13 +185,13 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
                     {
                         frm_wait.ShowDialog(this);
                     }
-                    setProducts(item, currentStocks, expiration, price, category);
+                    setProducts(item, currentStocks, expiration, price, category, unitPrice);
                 }
             }
             catch (FormatException ex)
             {
                 // Handle parsing errors (e.g., invalid input format)
-                MessageBox.Show("Invalid input format. Please enter valid numeric values.");
+                MessageBox.Show(ex.Message + "\nInvalid input format. Please enter valid numeric values.");
             }
             catch (Exception ex)
             {
@@ -194,7 +200,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
             }
         }
 
-        private void setProducts(string item, int currentStocks, DateTime expiration, double price, string category)
+        private void setProducts(string item, int currentStocks, DateTime expiration, double price, string category, double unitPrice)
         {
             int new_stocks = total_stocks - currentStocks;
             DateTime currentDate = DateTime.Now;
@@ -218,14 +224,20 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
             {
                 try
                 {
-                    InventoryProductsTableAdapter adapter = new InventoryProductsTableAdapter();
+                    InventoryProducts1TableAdapter adapter = new InventoryProducts1TableAdapter();
                     adapter.InsertInventory(
                             item,
                             0,
+                            0,
                             currentStocks,
                             currentStocks,
+                            currentStocks,
+                            currentStocks,
+                            0,
+                            0,
                             (decimal)price,
                             category,
+                            (decimal)unitPrice,
                             (decimal)item_price,
                             parsedDate,
                             parsedTime,
@@ -257,7 +269,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
             item_name_cbx.Text = "";
             current_stocks_tb.Text = "";
             expiration_dtp.Value = DateTime.Now;
-            price_tb.Text = "";
+            unit_price.Text = "";
             category_cbx.Text = "";
         }
 
@@ -392,8 +404,8 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
         {
             myDTG.DataSource = null;
 
-            InventoryProductsTableAdapter adapter = new InventoryProductsTableAdapter();
-            InvProduct.InventoryProductsDataTable dt = adapter.GetData();
+            InventoryProducts1TableAdapter adapter = new InventoryProducts1TableAdapter();
+            InvProduct.InventoryProducts1DataTable dt = adapter.GetData();
             myDTG.DataSource = dt;
 
             // Create a new DataTable with only the desired columns
@@ -409,22 +421,22 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
             filteredTable.Columns.Add("Delete", typeof(Image));
 
             // Populate the filtered DataTable with the selected columns from the original DataTable
-            foreach (InvProduct.InventoryProductsRow row in dt.Rows)
+            foreach (InvProduct.InventoryProducts1Row row in dt.Rows)
             {
                 // Fetch the quantity sold for the current item from the "DailySales" table
-                DailySalesTableAdapter dailySales = new DailySalesTableAdapter();
-
-                double cashSales = double.Parse(dailySales.getCashSales(row.Item).GetValueOrDefault().ToString());
+                //DailySalesTableAdapter dailySales = new DailySalesTableAdapter();
+                //
+                //double cashSales = double.Parse(dailySales.getCashSales(row.Item).GetValueOrDefault().ToString());
 
                 // Check if currentStocks is below 10
                 if (row.CurrentStocks < 10)
                 {
-                    filteredTable.Rows.Add(row.Item, row.TotalStocks, row.CurrentStocks, row.QuantitySold, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price), string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", cashSales), Properties.Resources.warning_small, Properties.Resources.edit_small, Properties.Resources.trash);
+                    filteredTable.Rows.Add(row.Item, row.TotalStocks, row.CurrentStocks, row.QuantitySold, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.UnitPrice), string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.CashSales), Properties.Resources.warning_small, Properties.Resources.edit_small, Properties.Resources.trash);
 
                 }
                 else
                 {
-                    filteredTable.Rows.Add(row.Item, row.TotalStocks, row.CurrentStocks, row.QuantitySold, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price), string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", cashSales), Properties.Resources.badge_check, Properties.Resources.badge_check, Properties.Resources.trash);
+                    filteredTable.Rows.Add(row.Item, row.TotalStocks, row.CurrentStocks, row.QuantitySold, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.UnitPrice), string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.CashSales), Properties.Resources.badge_check, Properties.Resources.badge_check, Properties.Resources.trash);
                 }
             }
 

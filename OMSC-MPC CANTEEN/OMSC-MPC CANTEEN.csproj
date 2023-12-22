@@ -22,10 +22,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="UserData\DataSets\DailySalesDataSet.Designer.cs">
+    <Compile Update="UserData\DataSets\DailySalesReportDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>DailySalesDataSet.xsd</DependentUpon>
+      <DependentUpon>DailySalesReportDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Update="UserData\DataSets\InvProduct.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -52,9 +52,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="UserData\DataSets\DailySalesDataSet.xsd">
+    <None Update="UserData\DataSets\DailySalesReportDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DailySalesDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>DailySalesReportDataSet.Designer.cs</LastGenOutput>
     </None>
     <None Update="UserData\DataSets\InvProduct.xsd">
       <Generator>MSDataSetGenerator</Generator>

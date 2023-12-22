@@ -42,14 +42,16 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             DataTable filteredTable = new DataTable();
             filteredTable.Columns.Add("Date");
             filteredTable.Columns.Add("Suplier");
-            filteredTable.Columns.Add("Total Amount");
             filteredTable.Columns.Add("Purchase");
+            filteredTable.Columns.Add("Quantity");
+            filteredTable.Columns.Add("Total Amount");
+            filteredTable.Columns.Add("Category");
             filteredTable.Columns.Add("Delete", typeof(Image));
 
             // Populate the filtered DataTable with the selected columns from the original DataTable
             foreach (ProductsDataSet.ProductsRow row in table.Rows)
             {
-                filteredTable.Rows.Add(row.DateAdded, row.Suplier, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.TotalAmount), row.Item, Properties.Resources.trash);
+                filteredTable.Rows.Add(row.DateAdded, row.Suplier, row.Item, row.CurrentStocks + " " + row.QuantityLevel, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.TotalAmount), row.Category, Properties.Resources.trash);
             }
 
             PURCHASES_DTG.DataSource = filteredTable;
@@ -57,9 +59,11 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             // Set the column headers
             PURCHASES_DTG.Columns[0].HeaderText = "Date";
             PURCHASES_DTG.Columns[1].HeaderText = "Suplier";
-            PURCHASES_DTG.Columns[2].HeaderText = "Total Amount";
-            PURCHASES_DTG.Columns[3].HeaderText = "Purchase";
-            PURCHASES_DTG.Columns[4].HeaderText = "Action";
+            PURCHASES_DTG.Columns[2].HeaderText = "Purchase";
+            PURCHASES_DTG.Columns[3].HeaderText = "Quantity";
+            PURCHASES_DTG.Columns[4].HeaderText = "Total Amount";
+            PURCHASES_DTG.Columns[5].HeaderText = "Category";
+            PURCHASES_DTG.Columns[6].HeaderText = "Action";
 
             // Set the column widths
             PURCHASES_DTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -67,11 +71,13 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             PURCHASES_DTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             PURCHASES_DTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             PURCHASES_DTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            PURCHASES_DTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            PURCHASES_DTG.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             // Set the padding and size of the icon
-            PURCHASES_DTG.Columns[4].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
-            PURCHASES_DTG.Columns[4].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
-            PURCHASES_DTG.Columns[4].Width = 30; // Adjust the width of the icon column
+            PURCHASES_DTG.Columns[6].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
+            PURCHASES_DTG.Columns[6].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
+            PURCHASES_DTG.Columns[6].Width = 30; // Adjust the width of the icon column
         }
 
         private void print_btn_MouseEnter(object sender, EventArgs e)
