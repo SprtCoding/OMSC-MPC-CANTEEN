@@ -1,6 +1,7 @@
 ﻿using Bunifu.Framework.UI;
 using DGVPrinterHelper;
 using OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms;
+using OMSC_MPC_CANTEEN.Dashboard.Menus.PrintData;
 using OMSC_MPC_CANTEEN.Loaders;
 using OMSC_MPC_CANTEEN.UserData.DataSets;
 using OMSC_MPC_CANTEEN.UserData.DataSets.DailySalesReportDataSetTableAdapters;
@@ -12,6 +13,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -182,12 +184,9 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                                 totalInventory,
                                 row.InventoryEndNow,
                                 row.QuantitySold,
-                                string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}",
-                                row.UnitPrice),
-                                string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}",
-                                row.Price),
-                                string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}",
-                                row.CashSales),
+                                string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.UnitPrice),
+                                string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price),
+                                string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.CashSales),
                                 Properties.Resources.badge_check,
                                 Properties.Resources.trash,
                                 row.DateAdded,
@@ -226,14 +225,14 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                         // Set the column widths
                         dtg.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                         dtg.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                        dtg.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        dtg.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        dtg.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        dtg.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        dtg.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        dtg.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        dtg.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        dtg.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        dtg.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dtg.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dtg.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dtg.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dtg.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dtg.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dtg.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dtg.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                         dtg.Columns[10].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                         dtg.Columns[11].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                         dtg.Columns[12].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -317,11 +316,6 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                     saveBtn.Cursor = System.Windows.Forms.Cursors.No;
                 }
             }
-        }
-
-        private void print_btn_MouseEnter(object sender, EventArgs e)
-        {
-            print_tooltip.SetToolTip(print_btn, "Print");
         }
 
         private void print_btn_Click(object sender, EventArgs e)
@@ -523,7 +517,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             string? unitPrice = row.Field<string>("Unit Price");
             string? CashSalePrice = row.Field<string>("Cash Sales");
             string numericUnitPricePart = new string(unitPrice.Where(c => Char.IsDigit(c) || c == '.' || c == ',').ToArray());
-            string numericCashSalePart = new string(unitPrice.Where(c => Char.IsDigit(c) || c == '.' || c == ',').ToArray());
+            string numericCashSalePart = new string(CashSalePrice.Where(c => Char.IsDigit(c) || c == '.' || c == ',').ToArray());
 
             if (decimal.TryParse(numericUnitPricePart, NumberStyles.Currency, CultureInfo.InvariantCulture, out decimal unitPriceValue) && decimal.TryParse(numericCashSalePart, NumberStyles.Currency, CultureInfo.InvariantCulture, out decimal CashSalePriceValue))
             {
@@ -974,7 +968,12 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
 
                             if (totalProductsStocks <= 9)
                             {
-                                MessageBox.Show(item + " is low stocks.\nPlease add new stocks in purchases!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show(item + " is low stocks.\nPlease add new stocks in stocks!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                invBegCell.Value = oldInventoryBeg;
+                            }
+                            else if (int.Parse(invBegString) > totalProductsStocks)
+                            {
+                                MessageBox.Show("Current stocks is greater than old stocks.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 invBegCell.Value = oldInventoryBeg;
                             }
                             else
@@ -1588,6 +1587,245 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             {
                 e.Handled = true;
             }
+        }
+
+        private void print_groceries_btn_Click(object sender, EventArgs e)
+        {
+            /*DGVPrinter printer = new DGVPrinter();
+            printer.Title = "Daily Sales\nGroceries";
+            printer.SubTitle = DateTime.Now.ToString("\nMM/dd/yyyy hh:mm tt\n");
+            printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+            printer.PageNumbers = true;
+            printer.PageNumberInHeader = false;
+            printer.PorportionalColumns = true;
+            printer.HeaderCellAlignment = StringAlignment.Near;
+            printer.Footer = "List of Groceries";
+            printer.FooterSpacing = 15;
+            // Adjust column widths to fit on one page, excluding the last column
+            printer.PageSettings.Landscape = false; // Set to true if you want landscape orientation
+
+            for (int i = 0; i < DAILY_SALES_GROCERIES_DTG.Columns.Count - 1; i++)
+            {
+                DAILY_SALES_GROCERIES_DTG.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+            printer.PrintDataGridView(DAILY_SALES_GROCERIES_DTG);*/
+
+            PrintPreview printPrev = new PrintPreview(DAILY_SALES_GROCERIES_DTG, "Groceries", "Daily Sales");
+            printPrev.ShowDialog();
+        }
+
+        private void print_groceries_btn_MouseEnter(object sender, EventArgs e)
+        {
+            print_tooltip.SetToolTip(print_groceries_btn, "Print Groceries");
+        }
+
+        private void print_drinks_btn_Click(object sender, EventArgs e)
+        {
+            /*DGVPrinter printer = new DGVPrinter();
+            printer.Title = "Daily Sales\nDrinks";
+            printer.SubTitle = DateTime.Now.ToString("\nMM/dd/yyyy hh:mm tt\n");
+            printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+            printer.PageNumbers = true;
+            printer.PageNumberInHeader = false;
+            printer.PorportionalColumns = true;
+            printer.HeaderCellAlignment = StringAlignment.Near;
+            printer.Footer = "List of Drinks";
+            printer.FooterSpacing = 15;
+            // Adjust column widths to fit on one page, excluding the last column
+            printer.PageSettings.Landscape = false; // Set to true if you want landscape orientation
+
+            for (int i = 0; i < DRINKS_DTG.Columns.Count - 1; i++)
+            {
+                DRINKS_DTG.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+            printer.PrintDataGridView(DRINKS_DTG);*/
+            PrintPreview printPrev = new PrintPreview(DRINKS_DTG, "Drinks", "Daily Sales");
+            printPrev.ShowDialog();
+        }
+
+        private void print_drinks_btn_MouseEnter(object sender, EventArgs e)
+        {
+            print_tooltip.SetToolTip(print_drinks_btn, "Print Drinks");
+        }
+
+        private void print_school_supp_btn_Click(object sender, EventArgs e)
+        {
+            /*DGVPrinter printer = new DGVPrinter();
+            printer.Title = "Daily Sales\nSchool Supplies";
+            printer.SubTitle = DateTime.Now.ToString("\nMM/dd/yyyy hh:mm tt\n");
+            printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+            printer.PageNumbers = true;
+            printer.PageNumberInHeader = false;
+            printer.PorportionalColumns = true;
+            printer.HeaderCellAlignment = StringAlignment.Near;
+            printer.Footer = "List of School Supplies";
+            printer.FooterSpacing = 15;
+            // Adjust column widths to fit on one page, excluding the last column
+            printer.PageSettings.Landscape = false; // Set to true if you want landscape orientation
+
+            for (int i = 0; i < SCHOOL_DTG.Columns.Count - 1; i++)
+            {
+                SCHOOL_DTG.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+            printer.PrintDataGridView(SCHOOL_DTG);*/
+            PrintPreview printPrev = new PrintPreview(SCHOOL_DTG, "School Supplies", "Daily Sales");
+            printPrev.ShowDialog();
+        }
+
+        private void print_school_supp_btn_MouseEnter(object sender, EventArgs e)
+        {
+            print_tooltip.SetToolTip(print_school_supp_btn, "Print School Supplies");
+        }
+
+        private void print_ice_cream_btn_Click(object sender, EventArgs e)
+        {
+            /*DGVPrinter printer = new DGVPrinter();
+            printer.Title = "Daily Sales\nIce Cream";
+            printer.SubTitle = DateTime.Now.ToString("\nMM/dd/yyyy hh:mm tt\n");
+            printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+            printer.PageNumbers = true;
+            printer.PageNumberInHeader = false;
+            printer.PorportionalColumns = true;
+            printer.HeaderCellAlignment = StringAlignment.Near;
+            printer.Footer = "List of Ice Cream";
+            printer.FooterSpacing = 15;
+            // Adjust column widths to fit on one page, excluding the last column
+            printer.PageSettings.Landscape = false; // Set to true if you want landscape orientation
+
+            for (int i = 0; i < ICE_CREAM_DTG.Columns.Count - 1; i++)
+            {
+                ICE_CREAM_DTG.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+            printer.PrintDataGridView(ICE_CREAM_DTG);*/
+            PrintPreview printPrev = new PrintPreview(ICE_CREAM_DTG, "Ice Cream", "Daily Sales");
+            printPrev.ShowDialog();
+        }
+
+        private void print_ice_cream_btn_MouseEnter(object sender, EventArgs e)
+        {
+            print_tooltip.SetToolTip(print_ice_cream_btn, "Print Ice Cream");
+        }
+
+        private void print_all_cat_Click(object sender, EventArgs e)
+        {
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += new PrintPageEventHandler(PrintPage);
+
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = pd;
+
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
+                printPreviewDialog.Document = pd;
+                printPreviewDialog.ShowDialog();
+
+                print_all_cat.Visible = false;
+            }
+        }
+
+        private void PrintPage(object sender, PrintPageEventArgs e)
+        {
+            // Define font and brush for header
+            Font headerFont = new Font("Poppins", 16, FontStyle.Bold);
+            System.Drawing.Brush headerBrush = System.Drawing.Brushes.Black;
+
+            // Define font and brush for data
+            Font dataFont = new Font("Poppins", 12);
+            System.Drawing.Brush dataBrush = System.Drawing.Brushes.Black;
+
+            // Define header and sample data
+            string headerText = "All Categories Data";
+            string dataText = "Groceries\nDrinks\nSchool Supplies\nIce Cream";
+
+            // Get the current date
+            string currentDate = DateTime.Now.ToString("MMMM dd, yyyy");
+
+            // Calculate the height of the header
+            float headerHeight = e.Graphics.MeasureString(headerText, headerFont).Height;
+
+            // Draw header with date
+            e.Graphics.DrawString($"{headerText} - {currentDate}", headerFont, headerBrush, new PointF(50, 50));
+
+            // Draw data below the header
+            float dataTop = 50 + headerHeight + 20; // Add some spacing below the header
+            e.Graphics.DrawString(dataText, dataFont, dataBrush, new PointF(50, dataTop));
+
+            // Calculate the height of the data
+            //float dataHeight = e.Graphics.MeasureString(dataText, dataFont).Height;
+
+            // Draw the panel content
+            Bitmap bmp = new Bitmap(all_cat_panel.Width, all_cat_panel.Height + 100);
+            all_cat_panel.DrawToBitmap(bmp, new Rectangle(20, (int)dataTop + 10, all_cat_panel.Width, all_cat_panel.Height + 100));
+            e.Graphics.DrawImage(bmp, new Point(20, (int)dataTop + 10 + (int)headerHeight + 10));
+        }
+
+        private void saveAll_btn_Click(object sender, EventArgs e)
+        {
+            bool success = false;  // Variable to track success
+
+            try
+            {
+                using (FRM_Wait frm_wait = new FRM_Wait(Wait))
+                {
+                    frm_wait.ShowDialog(this);
+                }
+
+                string newUID = Guid.NewGuid().ToString();
+                // Save data from each DataGridView
+                success |= SaveDataFromDataGridView(DAILY_SALES_GROCERIES_DTG);
+                success |= SaveDataFromDataGridView(DRINKS_DTG);
+                success |= SaveDataFromDataGridView(SCHOOL_DTG);
+                success |= SaveDataFromDataGridView(ICE_CREAM_DTG);
+
+                if (success)
+                {
+                    MessageBox.Show("All data saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("No data was successfully saved.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private bool SaveDataFromDataGridView(BunifuCustomDataGrid dtgs)
+        {
+            bool success = false;  // Variable to track success
+
+            try
+            {
+                // Create a data table to hold the data from the DataGridView
+                DataTable dt = (DataTable)dtgs.DataSource;
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    // Loop through each row in the DataTable
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        // Assuming you have a method to insert a row into the database
+                        // Generate a new UID
+                        string newUID = Guid.NewGuid().ToString();
+                        success |= InsertRowIntoDatabase(row, newUID);  // Use |= to set success to true if at least one row is successful
+                    }
+                }
+                else
+                {
+                    //MessageBox.Show("No data in the DataGridView.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    success = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                success = false;
+            }
+
+            return success;
         }
     }
 }

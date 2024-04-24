@@ -14,11 +14,14 @@ using DGVPrinterHelper;
 using OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms;
 using OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters;
 using OMSC_MPC_CANTEEN.Dashboard.Menus.Products;
+using OMSC_MPC_CANTEEN.Dashboard.Menus.PrintData;
 
 namespace OMSC_MPC_CANTEEN.Dashboard.Menus
 {
     public partial class Stocks : Form
     {
+        bool isHasStocks;
+
         public Stocks()
         {
             InitializeComponent();
@@ -39,7 +42,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             filteredTable.Columns.Add("Suplier");
             filteredTable.Columns.Add("Item");
             filteredTable.Columns.Add("Category");
-            filteredTable.Columns.Add("Quantity");
+            filteredTable.Columns.Add("CurrentStocks");
             filteredTable.Columns.Add("Price");
             filteredTable.Columns.Add("Date");
             filteredTable.Columns.Add("Warning", typeof(Image));
@@ -49,13 +52,31 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             // Populate the filtered DataTable with the selected columns from the original DataTable
             foreach (ProductsDataSet.ProductsRow row in table.Rows)
             {
-                if (row.CurrentStocks < 10)
+                if (row.CurrentStocks <= 10)
                 {
-                    filteredTable.Rows.Add(row.Suplier, row.Item, row.Category, row.CurrentStocks, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price), row.DateAdded, Properties.Resources.warning_small, Properties.Resources.edit_small, Properties.Resources.trash);
+                    filteredTable.Rows.Add(
+                        row.Suplier,
+                        row.Item,
+                        row.Category,
+                        row.CurrentStocks,
+                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price),
+                        row.DateAdded,
+                        Properties.Resources.warning_small,
+                        Properties.Resources.edit_small,
+                        Properties.Resources.trash);
                 }
                 else
                 {
-                    filteredTable.Rows.Add(row.Suplier, row.Item, row.Category, row.CurrentStocks, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price), row.DateAdded, Properties.Resources.badge_check, Properties.Resources.badge_check, Properties.Resources.trash);
+                    filteredTable.Rows.Add(
+                        row.Suplier,
+                        row.Item,
+                        row.Category,
+                        row.CurrentStocks,
+                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price),
+                        row.DateAdded,
+                        Properties.Resources.badge_check,
+                        Properties.Resources.badge_check,
+                        Properties.Resources.trash);
                 }
             }
 
@@ -73,12 +94,12 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             STOCKS_DTG.Columns[8].HeaderText = "Delete";
 
             // Set the column widths
-            STOCKS_DTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            STOCKS_DTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             STOCKS_DTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            STOCKS_DTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            STOCKS_DTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            STOCKS_DTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            STOCKS_DTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            STOCKS_DTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            STOCKS_DTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            STOCKS_DTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            STOCKS_DTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             STOCKS_DTG.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             STOCKS_DTG.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             STOCKS_DTG.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -97,6 +118,45 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             STOCKS_DTG.Columns[8].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
             STOCKS_DTG.Columns[8].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
             STOCKS_DTG.Columns[8].Width = 30; // Adjust the width of the icon column
+
+            // Add the CellFormatting event to set the tooltip for the Warning column
+            STOCKS_DTG.CellFormatting += (sender, e) =>
+            {
+                if (e.ColumnIndex == 6 && e.RowIndex >= 0 && e.RowIndex < STOCKS_DTG.Rows.Count)
+                {
+                    DataGridViewCell cell = STOCKS_DTG.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    string? quantity = STOCKS_DTG.Rows[e.RowIndex].Cells["CurrentStocks"].Value.ToString();
+                    int currentQuantity = int.Parse(quantity);
+
+                    if (currentQuantity <= 10)
+                    {
+                        cell.ToolTipText = STOCKS_DTG.Rows[e.RowIndex].Cells["Item"].Value.ToString() + " is low stock!\nClick edit to add more stocks.";
+                    }
+                    else
+                    {
+                        cell.ToolTipText = STOCKS_DTG.Rows[e.RowIndex].Cells["Item"].Value.ToString() + " has stocks available.";
+                    }
+                }
+                else if (e.ColumnIndex == 7 && e.RowIndex >= 0 && e.RowIndex < STOCKS_DTG.Rows.Count)
+                {
+                    DataGridViewCell cell = STOCKS_DTG.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    string? quantity = STOCKS_DTG.Rows[e.RowIndex].Cells["CurrentStocks"].Value.ToString();
+                    int currentQuantity = int.Parse(quantity);
+                    if (currentQuantity <= 10)
+                    {
+                        cell.ToolTipText = "Edit " + STOCKS_DTG.Rows[e.RowIndex].Cells["Item"].Value.ToString() + "?";
+                    }
+                    else
+                    {
+                        cell.ToolTipText = STOCKS_DTG.Rows[e.RowIndex].Cells["Item"].Value.ToString() + " has stocks available.";
+                    }
+                }
+                else if (e.ColumnIndex == 8 && e.RowIndex >= 0 && e.RowIndex < STOCKS_DTG.Rows.Count)
+                {
+                    DataGridViewCell cell = STOCKS_DTG.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    cell.ToolTipText = "Delete " + STOCKS_DTG.Rows[e.RowIndex].Cells["Item"].Value.ToString() + "?";
+                }
+            };
         }
 
         private void print_btn_MouseEnter(object sender, EventArgs e)
@@ -106,7 +166,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
 
         private void print_btn_Click(object sender, EventArgs e)
         {
-            DGVPrinter printer = new DGVPrinter();
+            /*DGVPrinter printer = new DGVPrinter();
             printer.Title = "Stocks";
             printer.SubTitle = DateTime.Now.ToString("MM/dd/yyyy hh:mm tt");
             printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
@@ -123,7 +183,10 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             {
                 STOCKS_DTG.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
-            printer.PrintDataGridView(STOCKS_DTG);
+            printer.PrintDataGridView(STOCKS_DTG);*/
+
+            PrintPreview print = new PrintPreview(STOCKS_DTG, "", "Stocks");
+            print.ShowDialog();
         }
 
         private void STOCKS_DTG_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -139,9 +202,6 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                     DialogResult result = MessageBox.Show("Are you sure you want to delete " + item + "?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
-                        //InventoryProductsTableAdapter adapter = new InventoryProductsTableAdapter();
-                        //adapter.DeleteFromInventory(item);
-                        //loadData();
                         ProductsTableAdapter product = new ProductsTableAdapter();
                         product.DeleteProducts(item);
                         loadData();

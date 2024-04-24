@@ -97,14 +97,24 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
                 DataTable filteredTable = new DataTable();
                 filteredTable.Columns.Add("Date");
                 filteredTable.Columns.Add("Suplier");
+                filteredTable.Columns.Add("Item");
+                filteredTable.Columns.Add("Quantity");
                 filteredTable.Columns.Add("Total Amount");
-                filteredTable.Columns.Add("Purchase");
+                filteredTable.Columns.Add("Category");
                 filteredTable.Columns.Add("Delete", typeof(Image));
 
                 // Populate the filtered DataTable with the selected columns from the original DataTable
                 foreach (ProductsDataSet.ProductsRow row in table.Rows)
                 {
-                    filteredTable.Rows.Add(row.DateAdded, row.Suplier, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.TotalAmount), row.Item, Properties.Resources.trash);
+                    filteredTable.Rows.Add(
+                            row.DateAdded,
+                            row.Suplier,
+                            row.Item,
+                            row.CurrentStocks + " " + row.QuantityLevel,
+                            string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.TotalAmount),
+                            row.Category,
+                            Properties.Resources.trash
+                        );
                 }
 
                 myDTG.DataSource = filteredTable;
@@ -112,21 +122,34 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
                 // Set the column headers
                 myDTG.Columns[0].HeaderText = "Date";
                 myDTG.Columns[1].HeaderText = "Suplier";
-                myDTG.Columns[2].HeaderText = "Total Amount";
-                myDTG.Columns[3].HeaderText = "Purchase";
-                myDTG.Columns[4].HeaderText = "Action";
+                myDTG.Columns[2].HeaderText = "Item";
+                myDTG.Columns[3].HeaderText = "Quantity";
+                myDTG.Columns[4].HeaderText = "Total Amount";
+                myDTG.Columns[5].HeaderText = "Category";
+                myDTG.Columns[6].HeaderText = "Action";
 
-                // Set the column widths
-                myDTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 myDTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                myDTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                myDTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                myDTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                myDTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                myDTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                myDTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                myDTG.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
                 // Set the padding and size of the icon
-                myDTG.Columns[4].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
-                myDTG.Columns[4].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
-                myDTG.Columns[4].Width = 30; // Adjust the width of the icon column
+                myDTG.Columns[6].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
+                myDTG.Columns[6].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
+                myDTG.Columns[6].Width = 30; // Adjust the width of the icon column
+
+                // Add the CellFormatting event to set the tooltip for the Warning column
+                myDTG.CellFormatting += (sender, e) =>
+                {
+                    if (e.ColumnIndex == 6 && e.RowIndex >= 0 && e.RowIndex < myDTG.Rows.Count)
+                    {
+                        DataGridViewCell cell = myDTG.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                        cell.ToolTipText = "Delete " + myDTG.Rows[e.RowIndex].Cells["Item"].Value.ToString() + "?";
+                    }
+                };
             }
         }
 
@@ -255,13 +278,13 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
                         item
                     );
                 MessageBox.Show("New stocks added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                loadDataStocks();
+                loadData();
                 clear();
                 Hide();
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Failed to add new stocks!", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Failed to add new stocks!\n" + ex.Message, "Failed", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
         }
@@ -282,7 +305,10 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
             try
             {
                 ProductsTableAdapter products = new ProductsTableAdapter();
-                products.InsertProducts(
+                // Check if the product already exists
+                if (!productExists(product))
+                {
+                    products.InsertProducts(
                         product,
                         0,
                         quantityLevel,
@@ -299,15 +325,29 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
                         month,
                         year
                     );
-                MessageBox.Show(product + " saved successfully!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(product + " saved successfully!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(product + " already exists!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
                 loadData();
                 clear();
                 Hide();
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Failed to saved " + product, "Failed", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Failed to saved " + product + ". Error: " + ex.Message, "Failed", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private bool productExists(string productName)
+        {
+            // Check if the product already exists in the database
+            ProductsTableAdapter products = new ProductsTableAdapter();
+            int count = Convert.ToInt32(products.ProductExists(productName));
+            return count > 0;
         }
 
         private void quantity_tb_OnValueChanged(object sender, EventArgs e)
@@ -356,11 +396,29 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
                 {
                     if (row.CurrentStocks < 10)
                     {
-                        filteredTable.Rows.Add(row.Suplier, row.Item, row.Category, row.CurrentStocks, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price), row.DateAdded, Properties.Resources.warning_small, Properties.Resources.edit_small, Properties.Resources.trash);
+                        filteredTable.Rows.Add(
+                            row.Suplier,
+                            row.Item,
+                            row.Category,
+                            row.CurrentStocks,
+                            string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price),
+                            row.DateAdded,
+                            Properties.Resources.warning_small,
+                            Properties.Resources.edit_small,
+                            Properties.Resources.trash);
                     }
                     else
                     {
-                        filteredTable.Rows.Add(row.Suplier, row.Item, row.Category, row.CurrentStocks, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price), row.DateAdded, Properties.Resources.badge_check, Properties.Resources.badge_check, Properties.Resources.trash);
+                        filteredTable.Rows.Add(
+                            row.Suplier,
+                            row.Item,
+                            row.Category,
+                            row.CurrentStocks,
+                            string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.Price),
+                            row.DateAdded,
+                            Properties.Resources.badge_check,
+                            Properties.Resources.badge_check,
+                            Properties.Resources.trash);
                     }
                 }
 
@@ -378,12 +436,12 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
                 myDTG.Columns[8].HeaderText = "Delete";
 
                 // Set the column widths
-                myDTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 myDTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                myDTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                myDTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                myDTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                myDTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                myDTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                myDTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                myDTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                myDTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 myDTG.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 myDTG.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 myDTG.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -402,6 +460,45 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.Products
                 myDTG.Columns[8].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
                 myDTG.Columns[8].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
                 myDTG.Columns[8].Width = 30; // Adjust the width of the icon column
+
+                // Add the CellFormatting event to set the tooltip for the Warning column
+                myDTG.CellFormatting += (sender, e) =>
+                {
+                    if (e.ColumnIndex == 6 && e.RowIndex >= 0 && e.RowIndex < myDTG.Rows.Count)
+                    {
+                        DataGridViewCell cell = myDTG.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                        string? quantity = myDTG.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
+                        int currentQuantity = int.Parse(quantity);
+
+                        if (currentQuantity <= 9)
+                        {
+                            cell.ToolTipText = myDTG.Rows[e.RowIndex].Cells["Item"].Value.ToString() + " is low stock!\nJust click in Inventory Beg to add more stocks.";
+                        }
+                        else
+                        {
+                            cell.ToolTipText = myDTG.Rows[e.RowIndex].Cells["Item"].Value.ToString() + " has stocks available.";
+                        }
+                    }
+                    else if (e.ColumnIndex == 7 && e.RowIndex >= 0 && e.RowIndex < myDTG.Rows.Count)
+                    {
+                        DataGridViewCell cell = myDTG.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                        string? quantity = myDTG.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
+                        int currentQuantity = int.Parse(quantity);
+                        if (currentQuantity <= 9)
+                        {
+                            cell.ToolTipText = "Edit " + myDTG.Rows[e.RowIndex].Cells["Item"].Value.ToString() + "?";
+                        }
+                        else
+                        {
+                            cell.ToolTipText = myDTG.Rows[e.RowIndex].Cells["Item"].Value.ToString() + " has stocks available.";
+                        }
+                    }
+                    else if (e.ColumnIndex == 8 && e.RowIndex >= 0 && e.RowIndex < myDTG.Rows.Count)
+                    {
+                        DataGridViewCell cell = myDTG.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                        cell.ToolTipText = "Delete " + myDTG.Rows[e.RowIndex].Cells["Item"].Value.ToString() + "?";
+                    }
+                };
             }
         }
     }

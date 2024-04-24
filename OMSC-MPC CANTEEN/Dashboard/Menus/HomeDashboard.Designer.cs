@@ -62,6 +62,8 @@
             bunifuElipse4 = new Bunifu.Framework.UI.BunifuElipse(components);
             tableLayoutPanel3 = new TableLayoutPanel();
             panel3 = new Panel();
+            bunifuElipse5 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse6 = new Bunifu.Framework.UI.BunifuElipse(components);
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -416,13 +418,13 @@
             // 
             tableLayoutPanel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel3.ColumnCount = 1;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 67.01323F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel3.Controls.Add(panel3, 0, 0);
             tableLayoutPanel3.Location = new Point(8, 326);
             tableLayoutPanel3.Margin = new Padding(2);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel3.Size = new Size(747, 227);
             tableLayoutPanel3.TabIndex = 4;
             // 
@@ -435,6 +437,14 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(743, 223);
             panel3.TabIndex = 0;
+            // 
+            // bunifuElipse5
+            // 
+            bunifuElipse5.ElipseRadius = 10;
+            // 
+            // bunifuElipse6
+            // 
+            bunifuElipse6.ElipseRadius = 10;
             // 
             // HomeDashboard
             // 
@@ -503,5 +513,7 @@
         private PictureBox pictureBox1;
         private Label sales_lbl;
         private Label label9;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse5;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse6;
     }
 }

@@ -129,7 +129,7 @@
             add_new_btn.Text = "Add New";
             add_new_btn.TextAlign = ContentAlignment.MiddleRight;
             add_new_btn.Textcolor = Color.White;
-            add_new_btn.TextFont = new Font("Poppins", 8F, FontStyle.Bold, GraphicsUnit.Point);
+            add_new_btn.TextFont = new Font("Poppins Medium", 8F, FontStyle.Regular, GraphicsUnit.Point);
             add_new_btn.Click += add_new_btn_Click;
             // 
             // PURCHASES_DTG
@@ -139,12 +139,14 @@
             dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
             PURCHASES_DTG.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             PURCHASES_DTG.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            PURCHASES_DTG.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            PURCHASES_DTG.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             PURCHASES_DTG.BackgroundColor = SystemColors.Control;
             PURCHASES_DTG.BorderStyle = BorderStyle.None;
             PURCHASES_DTG.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(248, 195, 23);
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle2.Font = new Font("Poppins Medium", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(250, 215, 100);
             dataGridViewCellStyle2.SelectionForeColor = Color.DimGray;
@@ -154,7 +156,7 @@
             PURCHASES_DTG.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.Font = new Font("Poppins", 8F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(250, 215, 100);
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.WindowText;
@@ -176,6 +178,7 @@
             PURCHASES_DTG.RowTemplate.Height = 33;
             PURCHASES_DTG.Size = new Size(744, 441);
             PURCHASES_DTG.TabIndex = 7;
+            PURCHASES_DTG.CellContentClick += PURCHASES_DTG_CellContentClick;
             // 
             // print_btn
             // 

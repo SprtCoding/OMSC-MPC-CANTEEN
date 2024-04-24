@@ -55,6 +55,7 @@
             oct_btn = new Bunifu.Framework.UI.BunifuFlatButton();
             nov_btn = new Bunifu.Framework.UI.BunifuFlatButton();
             panel4 = new Panel();
+            no_data = new Label();
             print_btn = new Bunifu.Framework.UI.BunifuFlatButton();
             total_sales_lbl = new Label();
             label3 = new Label();
@@ -78,31 +79,28 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 26.9434166F));
             tableLayoutPanel1.Controls.Add(panel2, 1, 0);
             tableLayoutPanel1.Controls.Add(panel1, 0, 0);
-            tableLayoutPanel1.Location = new Point(8, 7);
-            tableLayoutPanel1.Margin = new Padding(2);
+            tableLayoutPanel1.Location = new Point(11, 12);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(747, 56);
+            tableLayoutPanel1.Size = new Size(1067, 93);
             tableLayoutPanel1.TabIndex = 4;
             // 
             // panel2
             // 
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(547, 2);
-            panel2.Margin = new Padding(2);
+            panel2.Location = new Point(782, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(198, 52);
+            panel2.Size = new Size(282, 87);
             panel2.TabIndex = 1;
             // 
             // panel1
             // 
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(2, 2);
-            panel1.Margin = new Padding(2);
+            panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(541, 52);
+            panel1.Size = new Size(773, 87);
             panel1.TabIndex = 0;
             // 
             // label1
@@ -110,10 +108,9 @@
             label1.Anchor = AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Font = new Font("Poppins", 14F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(10, 9);
-            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Location = new Point(14, 15);
             label1.Name = "label1";
-            label1.Size = new Size(165, 34);
+            label1.Size = new Size(242, 50);
             label1.TabIndex = 1;
             label1.Text = "Monthly Report";
             // 
@@ -121,10 +118,9 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(21, 74);
-            label2.Margin = new Padding(2, 0, 2, 0);
+            label2.Location = new Point(30, 123);
             label2.Name = "label2";
-            label2.Size = new Size(48, 28);
+            label2.Size = new Size(72, 42);
             label2.TabIndex = 2;
             label2.Text = "Year";
             // 
@@ -135,11 +131,9 @@
             year_select_cbx.Font = new Font("Poppins", 11F, FontStyle.Regular, GraphicsUnit.Point);
             year_select_cbx.FormattingEnabled = true;
             year_select_cbx.IntegralHeight = false;
-            year_select_cbx.Items.AddRange(new object[] { "All", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023" });
-            year_select_cbx.Location = new Point(73, 68);
-            year_select_cbx.Margin = new Padding(2);
+            year_select_cbx.Location = new Point(104, 113);
             year_select_cbx.Name = "year_select_cbx";
-            year_select_cbx.Size = new Size(295, 34);
+            year_select_cbx.Size = new Size(420, 47);
             year_select_cbx.TabIndex = 5;
             year_select_cbx.SelectedIndexChanged += year_select_cbx_SelectedIndexChanged;
             // 
@@ -151,22 +145,20 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 79.25397F));
             tableLayoutPanel2.Controls.Add(panel3, 0, 0);
             tableLayoutPanel2.Controls.Add(panel4, 1, 0);
-            tableLayoutPanel2.Location = new Point(8, 110);
-            tableLayoutPanel2.Margin = new Padding(2);
+            tableLayoutPanel2.Location = new Point(11, 183);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(747, 442);
+            tableLayoutPanel2.Size = new Size(1067, 737);
             tableLayoutPanel2.TabIndex = 6;
             // 
             // panel3
             // 
             panel3.Controls.Add(tableLayoutPanel3);
             panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(2, 2);
-            panel3.Margin = new Padding(2);
+            panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(150, 438);
+            panel3.Size = new Size(215, 731);
             panel3.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -187,7 +179,6 @@
             tableLayoutPanel3.Controls.Add(nov_btn, 0, 10);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(0, 0);
-            tableLayoutPanel3.Margin = new Padding(2);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 12;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
@@ -202,7 +193,7 @@
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 8.333332F));
-            tableLayoutPanel3.Size = new Size(150, 438);
+            tableLayoutPanel3.Size = new Size(215, 731);
             tableLayoutPanel3.TabIndex = 0;
             // 
             // dec_btn
@@ -229,15 +220,15 @@
             dec_btn.IconVisible = true;
             dec_btn.IconZoom = 25D;
             dec_btn.IsTab = false;
-            dec_btn.Location = new Point(4, 399);
-            dec_btn.Margin = new Padding(4, 3, 4, 3);
+            dec_btn.Location = new Point(6, 665);
+            dec_btn.Margin = new Padding(6, 5, 6, 5);
             dec_btn.Name = "dec_btn";
             dec_btn.Normalcolor = Color.Transparent;
             dec_btn.OnHovercolor = Color.DarkGray;
             dec_btn.OnHoverTextColor = Color.Black;
-            dec_btn.Padding = new Padding(7, 6, 7, 6);
+            dec_btn.Padding = new Padding(10, 10, 10, 10);
             dec_btn.selected = false;
-            dec_btn.Size = new Size(142, 36);
+            dec_btn.Size = new Size(203, 61);
             dec_btn.TabIndex = 12;
             dec_btn.Text = "  December";
             dec_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -269,15 +260,15 @@
             jan_btn.IconVisible = true;
             jan_btn.IconZoom = 25D;
             jan_btn.IsTab = false;
-            jan_btn.Location = new Point(4, 3);
-            jan_btn.Margin = new Padding(4, 3, 4, 3);
+            jan_btn.Location = new Point(6, 5);
+            jan_btn.Margin = new Padding(6, 5, 6, 5);
             jan_btn.Name = "jan_btn";
             jan_btn.Normalcolor = Color.Transparent;
             jan_btn.OnHovercolor = Color.DarkGray;
             jan_btn.OnHoverTextColor = Color.Black;
-            jan_btn.Padding = new Padding(7, 6, 7, 6);
+            jan_btn.Padding = new Padding(10, 10, 10, 10);
             jan_btn.selected = false;
-            jan_btn.Size = new Size(142, 30);
+            jan_btn.Size = new Size(203, 50);
             jan_btn.TabIndex = 1;
             jan_btn.Text = "  January";
             jan_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -309,15 +300,15 @@
             feb_btn.IconVisible = true;
             feb_btn.IconZoom = 25D;
             feb_btn.IsTab = false;
-            feb_btn.Location = new Point(4, 39);
-            feb_btn.Margin = new Padding(4, 3, 4, 3);
+            feb_btn.Location = new Point(6, 65);
+            feb_btn.Margin = new Padding(6, 5, 6, 5);
             feb_btn.Name = "feb_btn";
             feb_btn.Normalcolor = Color.Transparent;
             feb_btn.OnHovercolor = Color.DarkGray;
             feb_btn.OnHoverTextColor = Color.Black;
-            feb_btn.Padding = new Padding(7, 6, 7, 6);
+            feb_btn.Padding = new Padding(10, 10, 10, 10);
             feb_btn.selected = false;
-            feb_btn.Size = new Size(142, 30);
+            feb_btn.Size = new Size(203, 50);
             feb_btn.TabIndex = 2;
             feb_btn.Text = "  February";
             feb_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -349,15 +340,15 @@
             mar_btn.IconVisible = true;
             mar_btn.IconZoom = 25D;
             mar_btn.IsTab = false;
-            mar_btn.Location = new Point(4, 75);
-            mar_btn.Margin = new Padding(4, 3, 4, 3);
+            mar_btn.Location = new Point(6, 125);
+            mar_btn.Margin = new Padding(6, 5, 6, 5);
             mar_btn.Name = "mar_btn";
             mar_btn.Normalcolor = Color.Transparent;
             mar_btn.OnHovercolor = Color.DarkGray;
             mar_btn.OnHoverTextColor = Color.Black;
-            mar_btn.Padding = new Padding(7, 6, 7, 6);
+            mar_btn.Padding = new Padding(10, 10, 10, 10);
             mar_btn.selected = false;
-            mar_btn.Size = new Size(142, 30);
+            mar_btn.Size = new Size(203, 50);
             mar_btn.TabIndex = 3;
             mar_btn.Text = "  March";
             mar_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -389,15 +380,15 @@
             apr_btn.IconVisible = true;
             apr_btn.IconZoom = 25D;
             apr_btn.IsTab = false;
-            apr_btn.Location = new Point(4, 111);
-            apr_btn.Margin = new Padding(4, 3, 4, 3);
+            apr_btn.Location = new Point(6, 185);
+            apr_btn.Margin = new Padding(6, 5, 6, 5);
             apr_btn.Name = "apr_btn";
             apr_btn.Normalcolor = Color.Transparent;
             apr_btn.OnHovercolor = Color.DarkGray;
             apr_btn.OnHoverTextColor = Color.Black;
-            apr_btn.Padding = new Padding(7, 6, 7, 6);
+            apr_btn.Padding = new Padding(10, 10, 10, 10);
             apr_btn.selected = false;
-            apr_btn.Size = new Size(142, 30);
+            apr_btn.Size = new Size(203, 50);
             apr_btn.TabIndex = 4;
             apr_btn.Text = "  April";
             apr_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -429,15 +420,15 @@
             may_btn.IconVisible = true;
             may_btn.IconZoom = 25D;
             may_btn.IsTab = false;
-            may_btn.Location = new Point(4, 147);
-            may_btn.Margin = new Padding(4, 3, 4, 3);
+            may_btn.Location = new Point(6, 245);
+            may_btn.Margin = new Padding(6, 5, 6, 5);
             may_btn.Name = "may_btn";
             may_btn.Normalcolor = Color.Transparent;
             may_btn.OnHovercolor = Color.DarkGray;
             may_btn.OnHoverTextColor = Color.Black;
-            may_btn.Padding = new Padding(7, 6, 7, 6);
+            may_btn.Padding = new Padding(10, 10, 10, 10);
             may_btn.selected = false;
-            may_btn.Size = new Size(142, 30);
+            may_btn.Size = new Size(203, 50);
             may_btn.TabIndex = 5;
             may_btn.Text = "  May";
             may_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -469,15 +460,15 @@
             june_btn.IconVisible = true;
             june_btn.IconZoom = 25D;
             june_btn.IsTab = false;
-            june_btn.Location = new Point(4, 183);
-            june_btn.Margin = new Padding(4, 3, 4, 3);
+            june_btn.Location = new Point(6, 305);
+            june_btn.Margin = new Padding(6, 5, 6, 5);
             june_btn.Name = "june_btn";
             june_btn.Normalcolor = Color.Transparent;
             june_btn.OnHovercolor = Color.DarkGray;
             june_btn.OnHoverTextColor = Color.Black;
-            june_btn.Padding = new Padding(7, 6, 7, 6);
+            june_btn.Padding = new Padding(10, 10, 10, 10);
             june_btn.selected = false;
-            june_btn.Size = new Size(142, 30);
+            june_btn.Size = new Size(203, 50);
             june_btn.TabIndex = 6;
             june_btn.Text = "  June";
             june_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -509,15 +500,15 @@
             july_btn.IconVisible = true;
             july_btn.IconZoom = 25D;
             july_btn.IsTab = false;
-            july_btn.Location = new Point(4, 219);
-            july_btn.Margin = new Padding(4, 3, 4, 3);
+            july_btn.Location = new Point(6, 365);
+            july_btn.Margin = new Padding(6, 5, 6, 5);
             july_btn.Name = "july_btn";
             july_btn.Normalcolor = Color.Transparent;
             july_btn.OnHovercolor = Color.DarkGray;
             july_btn.OnHoverTextColor = Color.Black;
-            july_btn.Padding = new Padding(7, 6, 7, 6);
+            july_btn.Padding = new Padding(10, 10, 10, 10);
             july_btn.selected = false;
-            july_btn.Size = new Size(142, 30);
+            july_btn.Size = new Size(203, 50);
             july_btn.TabIndex = 7;
             july_btn.Text = "  July";
             july_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -549,15 +540,15 @@
             aug_btn.IconVisible = true;
             aug_btn.IconZoom = 25D;
             aug_btn.IsTab = false;
-            aug_btn.Location = new Point(4, 255);
-            aug_btn.Margin = new Padding(4, 3, 4, 3);
+            aug_btn.Location = new Point(6, 425);
+            aug_btn.Margin = new Padding(6, 5, 6, 5);
             aug_btn.Name = "aug_btn";
             aug_btn.Normalcolor = Color.Transparent;
             aug_btn.OnHovercolor = Color.DarkGray;
             aug_btn.OnHoverTextColor = Color.Black;
-            aug_btn.Padding = new Padding(7, 6, 7, 6);
+            aug_btn.Padding = new Padding(10, 10, 10, 10);
             aug_btn.selected = false;
-            aug_btn.Size = new Size(142, 30);
+            aug_btn.Size = new Size(203, 50);
             aug_btn.TabIndex = 8;
             aug_btn.Text = "  August";
             aug_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -589,15 +580,15 @@
             sep_btn.IconVisible = true;
             sep_btn.IconZoom = 25D;
             sep_btn.IsTab = false;
-            sep_btn.Location = new Point(4, 291);
-            sep_btn.Margin = new Padding(4, 3, 4, 3);
+            sep_btn.Location = new Point(6, 485);
+            sep_btn.Margin = new Padding(6, 5, 6, 5);
             sep_btn.Name = "sep_btn";
             sep_btn.Normalcolor = Color.Transparent;
             sep_btn.OnHovercolor = Color.DarkGray;
             sep_btn.OnHoverTextColor = Color.Black;
-            sep_btn.Padding = new Padding(7, 6, 7, 6);
+            sep_btn.Padding = new Padding(10, 10, 10, 10);
             sep_btn.selected = false;
-            sep_btn.Size = new Size(142, 30);
+            sep_btn.Size = new Size(203, 50);
             sep_btn.TabIndex = 9;
             sep_btn.Text = "  September";
             sep_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -629,15 +620,15 @@
             oct_btn.IconVisible = true;
             oct_btn.IconZoom = 25D;
             oct_btn.IsTab = false;
-            oct_btn.Location = new Point(4, 327);
-            oct_btn.Margin = new Padding(4, 3, 4, 3);
+            oct_btn.Location = new Point(6, 545);
+            oct_btn.Margin = new Padding(6, 5, 6, 5);
             oct_btn.Name = "oct_btn";
             oct_btn.Normalcolor = Color.Transparent;
             oct_btn.OnHovercolor = Color.DarkGray;
             oct_btn.OnHoverTextColor = Color.Black;
-            oct_btn.Padding = new Padding(7, 6, 7, 6);
+            oct_btn.Padding = new Padding(10, 10, 10, 10);
             oct_btn.selected = false;
-            oct_btn.Size = new Size(142, 30);
+            oct_btn.Size = new Size(203, 50);
             oct_btn.TabIndex = 10;
             oct_btn.Text = "  October";
             oct_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -669,15 +660,15 @@
             nov_btn.IconVisible = true;
             nov_btn.IconZoom = 25D;
             nov_btn.IsTab = false;
-            nov_btn.Location = new Point(4, 363);
-            nov_btn.Margin = new Padding(4, 3, 4, 3);
+            nov_btn.Location = new Point(6, 605);
+            nov_btn.Margin = new Padding(6, 5, 6, 5);
             nov_btn.Name = "nov_btn";
             nov_btn.Normalcolor = Color.Transparent;
             nov_btn.OnHovercolor = Color.DarkGray;
             nov_btn.OnHoverTextColor = Color.Black;
-            nov_btn.Padding = new Padding(7, 6, 7, 6);
+            nov_btn.Padding = new Padding(10, 10, 10, 10);
             nov_btn.selected = false;
-            nov_btn.Size = new Size(142, 30);
+            nov_btn.Size = new Size(203, 50);
             nov_btn.TabIndex = 11;
             nov_btn.Text = "  November";
             nov_btn.TextAlign = ContentAlignment.MiddleLeft;
@@ -687,16 +678,29 @@
             // 
             // panel4
             // 
+            panel4.Controls.Add(no_data);
             panel4.Controls.Add(print_btn);
             panel4.Controls.Add(total_sales_lbl);
             panel4.Controls.Add(label3);
             panel4.Controls.Add(MONTHLY_REPORT_DTG);
             panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(156, 2);
-            panel4.Margin = new Padding(2);
+            panel4.Location = new Point(224, 3);
             panel4.Name = "panel4";
-            panel4.Size = new Size(589, 438);
+            panel4.Size = new Size(840, 731);
             panel4.TabIndex = 1;
+            // 
+            // no_data
+            // 
+            no_data.Anchor = AnchorStyles.None;
+            no_data.AutoSize = true;
+            no_data.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            no_data.Location = new Point(330, 342);
+            no_data.Name = "no_data";
+            no_data.Size = new Size(189, 42);
+            no_data.TabIndex = 10;
+            no_data.Text = "No Data found";
+            no_data.TextAlign = ContentAlignment.MiddleLeft;
+            no_data.Visible = false;
             // 
             // print_btn
             // 
@@ -706,7 +710,7 @@
             print_btn.BackColor = Color.FromArgb(46, 139, 87);
             print_btn.BackgroundImageLayout = ImageLayout.Stretch;
             print_btn.BorderRadius = 5;
-            print_btn.ButtonText = "  Print";
+            print_btn.ButtonText = "Print";
             print_btn.DisabledColor = Color.Gray;
             print_btn.Iconcolor = Color.Transparent;
             print_btn.Iconimage = (Image)resources.GetObject("print_btn.Iconimage");
@@ -720,19 +724,20 @@
             print_btn.IconVisible = true;
             print_btn.IconZoom = 25D;
             print_btn.IsTab = false;
-            print_btn.Location = new Point(502, 4);
-            print_btn.Margin = new Padding(4);
+            print_btn.Location = new Point(720, 7);
+            print_btn.Margin = new Padding(6, 7, 6, 7);
             print_btn.Name = "print_btn";
             print_btn.Normalcolor = Color.FromArgb(46, 139, 87);
             print_btn.OnHovercolor = Color.FromArgb(36, 129, 77);
             print_btn.OnHoverTextColor = Color.White;
+            print_btn.Padding = new Padding(7, 8, 7, 8);
             print_btn.selected = false;
-            print_btn.Size = new Size(78, 29);
+            print_btn.Size = new Size(107, 48);
             print_btn.TabIndex = 9;
-            print_btn.Text = "  Print";
-            print_btn.TextAlign = ContentAlignment.MiddleLeft;
+            print_btn.Text = "Print";
+            print_btn.TextAlign = ContentAlignment.MiddleCenter;
             print_btn.Textcolor = Color.White;
-            print_btn.TextFont = new Font("Poppins", 8F, FontStyle.Regular, GraphicsUnit.Point);
+            print_btn.TextFont = new Font("Poppins Medium", 8F, FontStyle.Regular, GraphicsUnit.Point);
             print_btn.Click += print_btn_Click;
             print_btn.MouseHover += print_btn_MouseHover;
             // 
@@ -740,10 +745,9 @@
             // 
             total_sales_lbl.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             total_sales_lbl.Font = new Font("Poppins", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            total_sales_lbl.Location = new Point(111, 411);
-            total_sales_lbl.Margin = new Padding(2, 0, 2, 0);
+            total_sales_lbl.Location = new Point(159, 686);
             total_sales_lbl.Name = "total_sales_lbl";
-            total_sales_lbl.Size = new Size(469, 18);
+            total_sales_lbl.Size = new Size(669, 30);
             total_sales_lbl.TabIndex = 7;
             total_sales_lbl.Text = "0";
             total_sales_lbl.TextAlign = ContentAlignment.MiddleLeft;
@@ -753,10 +757,9 @@
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label3.AutoSize = true;
             label3.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(13, 411);
-            label3.Margin = new Padding(2, 0, 2, 0);
+            label3.Location = new Point(19, 686);
             label3.Name = "label3";
-            label3.Size = new Size(101, 28);
+            label3.Size = new Size(152, 42);
             label3.TabIndex = 6;
             label3.Text = "Total Sales:";
             label3.TextAlign = ContentAlignment.MiddleLeft;
@@ -768,12 +771,14 @@
             dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
             MONTHLY_REPORT_DTG.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             MONTHLY_REPORT_DTG.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            MONTHLY_REPORT_DTG.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            MONTHLY_REPORT_DTG.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             MONTHLY_REPORT_DTG.BackgroundColor = SystemColors.Control;
             MONTHLY_REPORT_DTG.BorderStyle = BorderStyle.None;
             MONTHLY_REPORT_DTG.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(248, 195, 23);
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle2.Font = new Font("Poppins Medium", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(250, 215, 100);
             dataGridViewCellStyle2.SelectionForeColor = Color.DimGray;
@@ -783,7 +788,7 @@
             MONTHLY_REPORT_DTG.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.Font = new Font("Poppins", 8F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(250, 215, 100);
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.WindowText;
@@ -794,8 +799,7 @@
             MONTHLY_REPORT_DTG.GridColor = Color.FromArgb(250, 215, 100);
             MONTHLY_REPORT_DTG.HeaderBgColor = Color.FromArgb(248, 195, 23);
             MONTHLY_REPORT_DTG.HeaderForeColor = SystemColors.ControlText;
-            MONTHLY_REPORT_DTG.Location = new Point(13, 39);
-            MONTHLY_REPORT_DTG.Margin = new Padding(2);
+            MONTHLY_REPORT_DTG.Location = new Point(19, 65);
             MONTHLY_REPORT_DTG.Name = "MONTHLY_REPORT_DTG";
             MONTHLY_REPORT_DTG.ReadOnly = true;
             MONTHLY_REPORT_DTG.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -803,25 +807,24 @@
             MONTHLY_REPORT_DTG.RowHeadersWidth = 62;
             MONTHLY_REPORT_DTG.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             MONTHLY_REPORT_DTG.RowTemplate.Height = 33;
-            MONTHLY_REPORT_DTG.Size = new Size(567, 370);
+            MONTHLY_REPORT_DTG.Size = new Size(809, 618);
             MONTHLY_REPORT_DTG.TabIndex = 5;
             // 
             // rad
             // 
-            rad.ElipseRadius = 10;
+            rad.ElipseRadius = 5;
             rad.TargetControl = MONTHLY_REPORT_DTG;
             // 
             // MonthlyReport
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(763, 560);
+            ClientSize = new Size(1090, 933);
             Controls.Add(tableLayoutPanel2);
             Controls.Add(year_select_cbx);
             Controls.Add(label2);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(2);
             Name = "MonthlyReport";
             Text = "MonthlyReport";
             tableLayoutPanel1.ResumeLayout(false);
@@ -867,5 +870,6 @@
         private Bunifu.Framework.UI.BunifuElipse rad;
         private Bunifu.Framework.UI.BunifuFlatButton print_btn;
         private ToolTip print_tooltip;
+        private Label no_data;
     }
 }

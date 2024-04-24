@@ -42,7 +42,7 @@
             expiration_dtp = new DateTimePicker();
             label5 = new Label();
             panel1 = new Panel();
-            item_name_cbx = new ComboBox();
+            item_name_tb = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             label2 = new Label();
             panel2 = new Panel();
             current_stocks_tb = new Bunifu.Framework.UI.BunifuMaterialTextbox();
@@ -51,7 +51,6 @@
             category_cbx = new ComboBox();
             label4 = new Label();
             save_btn = new Bunifu.Framework.UI.BunifuFlatButton();
-            update_btn = new Bunifu.Framework.UI.BunifuFlatButton();
             products_gb.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel6.SuspendLayout();
@@ -69,7 +68,7 @@
             label1.Location = new Point(30, 22);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(111, 34);
+            label1.Size = new Size(162, 50);
             label1.TabIndex = 3;
             label1.Text = "Inventory";
             // 
@@ -99,7 +98,7 @@
             tableLayoutPanel1.Controls.Add(panel2, 1, 0);
             tableLayoutPanel1.Controls.Add(panel3, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(4, 23);
+            tableLayoutPanel1.Location = new Point(4, 33);
             tableLayoutPanel1.Margin = new Padding(4, 3, 4, 3);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
@@ -107,17 +106,17 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 18F));
-            tableLayoutPanel1.Size = new Size(975, 334);
+            tableLayoutPanel1.Size = new Size(975, 324);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // panel6
             // 
             panel6.Controls.Add(price_tb);
             panel6.Controls.Add(label7);
-            panel6.Location = new Point(4, 225);
+            panel6.Location = new Point(4, 219);
             panel6.Margin = new Padding(4, 3, 4, 3);
             panel6.Name = "panel6";
-            panel6.Size = new Size(479, 106);
+            panel6.Size = new Size(479, 102);
             panel6.TabIndex = 7;
             // 
             // price_tb
@@ -136,11 +135,11 @@
             price_tb.LineIdleColor = Color.Gray;
             price_tb.LineMouseHoverColor = Color.FromArgb(250, 215, 100);
             price_tb.LineThickness = 3;
-            price_tb.Location = new Point(16, 51);
+            price_tb.Location = new Point(16, 41);
             price_tb.Margin = new Padding(6, 7, 6, 7);
             price_tb.MaxLength = 32767;
             price_tb.Name = "price_tb";
-            price_tb.Size = new Size(445, 31);
+            price_tb.Size = new Size(445, 45);
             price_tb.TabIndex = 4;
             price_tb.TextAlign = HorizontalAlignment.Left;
             // 
@@ -148,10 +147,10 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Poppins", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(19, 27);
+            label7.Location = new Point(16, 12);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
-            label7.Size = new Size(48, 25);
+            label7.Size = new Size(66, 36);
             label7.TabIndex = 3;
             label7.Text = "Price";
             // 
@@ -159,10 +158,10 @@
             // 
             panel5.Controls.Add(unit_price);
             panel5.Controls.Add(label6);
-            panel5.Location = new Point(491, 225);
+            panel5.Location = new Point(491, 219);
             panel5.Margin = new Padding(4, 3, 4, 3);
             panel5.Name = "panel5";
-            panel5.Size = new Size(479, 106);
+            panel5.Size = new Size(479, 102);
             panel5.TabIndex = 6;
             // 
             // unit_price
@@ -180,11 +179,11 @@
             unit_price.LineIdleColor = Color.Gray;
             unit_price.LineMouseHoverColor = Color.FromArgb(250, 215, 100);
             unit_price.LineThickness = 3;
-            unit_price.Location = new Point(16, 51);
+            unit_price.Location = new Point(16, 41);
             unit_price.Margin = new Padding(6, 7, 6, 7);
             unit_price.MaxLength = 32767;
             unit_price.Name = "unit_price";
-            unit_price.Size = new Size(445, 31);
+            unit_price.Size = new Size(445, 45);
             unit_price.TabIndex = 4;
             unit_price.TextAlign = HorizontalAlignment.Left;
             // 
@@ -192,10 +191,10 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Poppins", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(19, 27);
+            label6.Location = new Point(16, 12);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
-            label6.Size = new Size(80, 25);
+            label6.Size = new Size(111, 36);
             label6.TabIndex = 3;
             label6.Text = "Unit Price";
             // 
@@ -203,10 +202,10 @@
             // 
             panel4.Controls.Add(expiration_dtp);
             panel4.Controls.Add(label5);
-            panel4.Location = new Point(491, 114);
+            panel4.Location = new Point(491, 111);
             panel4.Margin = new Padding(4, 3, 4, 3);
             panel4.Name = "panel4";
-            panel4.Size = new Size(480, 105);
+            panel4.Size = new Size(480, 102);
             panel4.TabIndex = 5;
             // 
             // expiration_dtp
@@ -214,7 +213,7 @@
             expiration_dtp.Font = new Font("Poppins", 10F, FontStyle.Regular, GraphicsUnit.Point);
             expiration_dtp.Location = new Point(16, 55);
             expiration_dtp.Name = "expiration_dtp";
-            expiration_dtp.Size = new Size(445, 27);
+            expiration_dtp.Size = new Size(445, 37);
             expiration_dtp.TabIndex = 4;
             // 
             // label5
@@ -224,35 +223,44 @@
             label5.Location = new Point(16, 20);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(124, 25);
+            label5.Size = new Size(174, 36);
             label5.TabIndex = 3;
             label5.Text = "Expiration Date";
             // 
             // panel1
             // 
-            panel1.Controls.Add(item_name_cbx);
+            panel1.Controls.Add(item_name_tb);
             panel1.Controls.Add(label2);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(4, 3);
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(479, 105);
+            panel1.Size = new Size(479, 102);
             panel1.TabIndex = 1;
             // 
-            // item_name_cbx
+            // item_name_tb
             // 
-            item_name_cbx.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            item_name_cbx.DropDownStyle = ComboBoxStyle.DropDownList;
-            item_name_cbx.FlatStyle = FlatStyle.Flat;
-            item_name_cbx.Font = new Font("Poppins", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            item_name_cbx.FormattingEnabled = true;
-            item_name_cbx.Items.AddRange(new object[] { "Softdrinks", "Snacks", "Toiletries", "Liquer" });
-            item_name_cbx.Location = new Point(17, 52);
-            item_name_cbx.Name = "item_name_cbx";
-            item_name_cbx.Size = new Size(444, 31);
-            item_name_cbx.TabIndex = 5;
-            item_name_cbx.SelectedIndexChanged += item_name_cbx_SelectedIndexChanged;
-            item_name_cbx.TextChanged += item_name_cbx_TextChanged;
+            item_name_tb.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            item_name_tb.AutoCompleteMode = AutoCompleteMode.None;
+            item_name_tb.AutoCompleteSource = AutoCompleteSource.None;
+            item_name_tb.characterCasing = CharacterCasing.Normal;
+            item_name_tb.Font = new Font("Poppins", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            item_name_tb.ForeColor = Color.FromArgb(64, 64, 64);
+            item_name_tb.HintForeColor = Color.Empty;
+            item_name_tb.HintText = "";
+            item_name_tb.isPassword = false;
+            item_name_tb.LineFocusedColor = Color.FromArgb(250, 215, 100);
+            item_name_tb.LineIdleColor = Color.Gray;
+            item_name_tb.LineMouseHoverColor = Color.FromArgb(250, 215, 100);
+            item_name_tb.LineThickness = 2;
+            item_name_tb.Location = new Point(17, 54);
+            item_name_tb.Margin = new Padding(6, 7, 6, 7);
+            item_name_tb.MaxLength = 32767;
+            item_name_tb.Name = "item_name_tb";
+            item_name_tb.Size = new Size(445, 35);
+            item_name_tb.TabIndex = 5;
+            item_name_tb.TextAlign = HorizontalAlignment.Left;
+            item_name_tb.OnValueChanged += item_name_tb_OnValueChanged;
             // 
             // label2
             // 
@@ -261,7 +269,7 @@
             label2.Location = new Point(16, 23);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(46, 25);
+            label2.Size = new Size(62, 36);
             label2.TabIndex = 3;
             label2.Text = "Item";
             // 
@@ -272,7 +280,7 @@
             panel2.Location = new Point(491, 3);
             panel2.Margin = new Padding(4, 3, 4, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(480, 105);
+            panel2.Size = new Size(480, 102);
             panel2.TabIndex = 2;
             // 
             // current_stocks_tb
@@ -294,7 +302,7 @@
             current_stocks_tb.Margin = new Padding(6, 7, 6, 7);
             current_stocks_tb.MaxLength = 32767;
             current_stocks_tb.Name = "current_stocks_tb";
-            current_stocks_tb.Size = new Size(445, 31);
+            current_stocks_tb.Size = new Size(445, 35);
             current_stocks_tb.TabIndex = 4;
             current_stocks_tb.TextAlign = HorizontalAlignment.Left;
             current_stocks_tb.OnValueChanged += current_stocks_tb_OnValueChanged;
@@ -306,7 +314,7 @@
             label3.Location = new Point(16, 23);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(120, 25);
+            label3.Size = new Size(166, 36);
             label3.TabIndex = 3;
             label3.Text = "Current Stocks";
             // 
@@ -314,10 +322,10 @@
             // 
             panel3.Controls.Add(category_cbx);
             panel3.Controls.Add(label4);
-            panel3.Location = new Point(4, 114);
+            panel3.Location = new Point(4, 111);
             panel3.Margin = new Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(479, 105);
+            panel3.Size = new Size(479, 102);
             panel3.TabIndex = 3;
             // 
             // category_cbx
@@ -326,9 +334,9 @@
             category_cbx.Font = new Font("Poppins", 10F, FontStyle.Regular, GraphicsUnit.Point);
             category_cbx.FormattingEnabled = true;
             category_cbx.Items.AddRange(new object[] { "School Supplies", "Ice Cream", "Drinks", "Groceries" });
-            category_cbx.Location = new Point(17, 50);
+            category_cbx.Location = new Point(17, 49);
             category_cbx.Name = "category_cbx";
-            category_cbx.Size = new Size(444, 31);
+            category_cbx.Size = new Size(444, 44);
             category_cbx.TabIndex = 4;
             // 
             // label4
@@ -338,7 +346,7 @@
             label4.Location = new Point(16, 20);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new Size(82, 25);
+            label4.Size = new Size(113, 36);
             label4.TabIndex = 3;
             label4.Text = "Category";
             // 
@@ -379,49 +387,11 @@
             save_btn.TextFont = new Font("Poppins", 10F, FontStyle.Bold, GraphicsUnit.Point);
             save_btn.Click += save_btn_Click;
             // 
-            // update_btn
-            // 
-            update_btn.Active = false;
-            update_btn.Activecolor = Color.FromArgb(107, 189, 222);
-            update_btn.BackColor = Color.FromArgb(33, 157, 206);
-            update_btn.BackgroundImageLayout = ImageLayout.Stretch;
-            update_btn.BorderRadius = 5;
-            update_btn.ButtonText = "Update";
-            update_btn.Cursor = Cursors.Hand;
-            update_btn.DisabledColor = Color.Gray;
-            update_btn.Iconcolor = Color.Transparent;
-            update_btn.Iconimage = null;
-            update_btn.Iconimage_right = null;
-            update_btn.Iconimage_right_Selected = null;
-            update_btn.Iconimage_Selected = null;
-            update_btn.IconMarginLeft = 0;
-            update_btn.IconMarginRight = 0;
-            update_btn.IconRightVisible = true;
-            update_btn.IconRightZoom = 0D;
-            update_btn.IconVisible = true;
-            update_btn.IconZoom = 90D;
-            update_btn.IsTab = false;
-            update_btn.Location = new Point(284, 477);
-            update_btn.Margin = new Padding(5, 7, 5, 7);
-            update_btn.Name = "update_btn";
-            update_btn.Normalcolor = Color.FromArgb(33, 157, 206);
-            update_btn.OnHovercolor = Color.FromArgb(107, 189, 222);
-            update_btn.OnHoverTextColor = Color.White;
-            update_btn.selected = false;
-            update_btn.Size = new Size(223, 41);
-            update_btn.TabIndex = 6;
-            update_btn.Text = "Update";
-            update_btn.TextAlign = ContentAlignment.MiddleCenter;
-            update_btn.Textcolor = Color.White;
-            update_btn.TextFont = new Font("Poppins", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            update_btn.Click += update_btn_Click;
-            // 
             // AddInventory
             // 
-            AutoScaleDimensions = new SizeF(8F, 17F);
+            AutoScaleDimensions = new SizeF(12F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1043, 559);
-            Controls.Add(update_btn);
             Controls.Add(save_btn);
             Controls.Add(products_gb);
             Controls.Add(label1);
@@ -470,10 +440,9 @@
         private Bunifu.Framework.UI.BunifuFlatButton save_btn;
         private ComboBox category_cbx;
         private DateTimePicker expiration_dtp;
-        private ComboBox item_name_cbx;
-        private Bunifu.Framework.UI.BunifuFlatButton update_btn;
         private Panel panel6;
         private Bunifu.Framework.UI.BunifuMaterialTextbox price_tb;
         private Label label7;
+        private Bunifu.Framework.UI.BunifuMaterialTextbox item_name_tb;
     }
 }

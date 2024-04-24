@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Bunifu.Framework.UI;
 using OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters;
+using System.Windows.Controls;
 
 namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
 {
@@ -21,36 +22,18 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
         private BunifuCustomDataGrid? myDTG;
         private double item_price = 0;
         private int total_stocks = 0;
-        private string? item;
+        // Assuming you have a class-level variable to store the list of products
+        private List<string> productList = new List<string>();
 
-        public AddInventory(BunifuCustomDataGrid dtg, string item)
+        public AddInventory(BunifuCustomDataGrid dtg)
         {
             InitializeComponent();
             myDTG = dtg;
-            getItem();
+            setAutoCompleteTB(item_name_tb);
             getItemTotalStocks();
-
-            item_name_cbx.SelectedIndex = 0;
-
-            if (!item.Equals(""))
-            {
-                products_gb.Text = "Update Products";
-                item_name_cbx.Text = item;
-                update_btn.Enabled = true;
-                save_btn.Enabled = false;
-                item_name_cbx.Enabled = false;
-                category_cbx.Enabled = false;
-                expiration_dtp.Enabled = false;
-                this.item = item;
-            }
-            else
-            {
-                update_btn.Enabled = false;
-                save_btn.Enabled = true;
-            }
         }
 
-        private void updateProducts(string item)
+        private void updateProducts()
         {
             try
             {
@@ -58,9 +41,10 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
                 decimal newAmount = decimal.Parse(unit_price.Text);
                 int totalNewStocks = 0, totalStocks = 0, totalProductsStocks = 0;
                 decimal totalNewAmount = 0, price = 0;
+                string itemName = item_name_tb.Text;
 
                 ProductsTableAdapter product = new ProductsTableAdapter();
-                ProductsDataSet.ProductsDataTable pDT = product.getProductsData(item);
+                ProductsDataSet.ProductsDataTable pDT = product.getProductsData(itemName);
                 ProductsDataSet.ProductsRow pRow = pDT.Rows[0] as ProductsDataSet.ProductsRow;
 
                 if (pRow != null)
@@ -69,7 +53,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
                 }
 
                 InventoryProductsTableAdapter adapter = new InventoryProductsTableAdapter();
-                InvProduct.InventoryProductsDataTable dt = adapter.getInventoryData(item);
+                InvProduct.InventoryProductsDataTable dt = adapter.getInventoryData(itemName);
 
                 // Assuming item is a unique identifier in your DataTable
                 InvProduct.InventoryProductsRow row = dt.Rows[0] as InvProduct.InventoryProductsRow;
@@ -84,26 +68,26 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
 
                 if (totalProductsStocks <= 9)
                 {
-                    MessageBox.Show(item + " is low stocks.\nPlease add new stocks in purchases!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(itemName + " is low stocks.\nPlease add new stocks in purchases!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
                     try
                     {
                         adapter.UpdateInventoryProducts(
-                            item,
+                            itemName,
                             totalNewStocks,
                             totalStocks,
                             totalNewAmount,
                             category_cbx.Text,
                             price,
-                            item
+                            itemName
                         );
 
                         ProductsTableAdapter productsTableAdapter = new ProductsTableAdapter();
                         productsTableAdapter.UpdateProductsStocks(
                             totalProductsStocks - newStocks,
-                            item
+                            itemName
                         );
 
                         loadData();
@@ -113,7 +97,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
                     }
                     catch
                     {
-                        MessageBox.Show(item + " failed to update!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(itemName + " failed to update!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -142,7 +126,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
         {
             try
             {
-                string item = item_name_cbx.Text;
+                string item = item_name_tb.Text;
                 int currentStocks = int.Parse(current_stocks_tb.Text);
                 DateTime expiration = expiration_dtp.Value;
                 double price = double.Parse(price_tb.Text);
@@ -152,7 +136,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
                 if (String.IsNullOrEmpty(item))
                 {
                     MessageBox.Show("Item name is empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    item_name_cbx.Focus();
+                    item_name_tb.Focus();
                     return;
                 }
                 else if (String.IsNullOrEmpty(current_stocks_tb.Text))
@@ -224,35 +208,42 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
             {
                 try
                 {
-                    InventoryProducts1TableAdapter adapter = new InventoryProducts1TableAdapter();
-                    adapter.InsertInventory(
-                            item,
-                            0,
-                            0,
-                            currentStocks,
-                            currentStocks,
-                            currentStocks,
-                            currentStocks,
-                            0,
-                            0,
-                            (decimal)price,
-                            category,
-                            (decimal)unitPrice,
-                            (decimal)item_price,
-                            parsedDate,
-                            parsedTime,
-                            days,
-                            month,
-                            year
-                        );
+                    if (!InventoryExists(item))
+                    {
+                        InventoryProducts1TableAdapter adapter = new InventoryProducts1TableAdapter();
+                        adapter.InsertInventory(
+                                item,
+                                0,
+                                0,
+                                currentStocks,
+                                currentStocks,
+                                currentStocks,
+                                currentStocks,
+                                0,
+                                0,
+                                (decimal)price,
+                                category,
+                                (decimal)unitPrice,
+                                (decimal)item_price,
+                                parsedDate,
+                                parsedTime,
+                                days,
+                                month,
+                                year
+                            );
 
-                    ProductsTableAdapter pr = new ProductsTableAdapter();
-                    pr.UpdateProductsStocks(
-                            new_stocks,
-                            item
-                        );
+                        ProductsTableAdapter pr = new ProductsTableAdapter();
+                        pr.UpdateProductsStocks(
+                                new_stocks,
+                                item
+                            );
 
-                    MessageBox.Show(item + " saved successfully!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(item + " saved successfully!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show(item + " already exists!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                     loadData();
                     clear();
                     Hide();
@@ -264,28 +255,54 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
             }
         }
 
+        private bool InventoryExists(string productName)
+        {
+            // Check if the product already exists in the database
+            InventoryProducts1TableAdapter inv = new InventoryProducts1TableAdapter();
+            int count = Convert.ToInt32(inv.InventoryExists(productName));
+            return count > 0;
+        }
+
         private void clear()
         {
-            item_name_cbx.Text = "";
+            item_name_tb.Text = "";
             current_stocks_tb.Text = "";
             expiration_dtp.Value = DateTime.Now;
             unit_price.Text = "";
             category_cbx.Text = "";
         }
 
-        private void getItem()
+        private void setAutoCompleteTB(BunifuMaterialTextbox tb)
         {
+            AutoCompleteStringCollection source = new AutoCompleteStringCollection();
+            source.AddRange(getItem());
+            tb.AutoCompleteCustomSource = source;
+            tb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            tb.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        }
+
+        private string[] getItem()
+        {
+            // Clear the existing list
+            productList.Clear();
+
+            // Instantiate the table adapter and retrieve the data
             ProductsTableAdapter pr = new ProductsTableAdapter();
             ProductsDataSet.ProductsDataTable dt = pr.getProductsItem();
-            item_name_cbx.DataSource = dt;
-            item_name_cbx.DisplayMember = "Item";
 
-            item_name_cbx.SelectedIndex = 0;
+            // Iterate through each row in the data table and add the product names to the list
+            foreach (ProductsDataSet.ProductsRow row in dt.Rows)
+            {
+                productList.Add(row.Item); // Assuming 'ProductName' is the column containing product names
+            }
+
+            // Convert the list to an array and return
+            return productList.ToArray();
         }
 
         private void getItemCategory()
         {
-            string selectedValue = item_name_cbx.Text;
+            string selectedValue = item_name_tb.Text;
             ProductsTableAdapter pr = new ProductsTableAdapter();
             ProductsDataSet.ProductsDataTable dt = pr.getItemCategory(selectedValue);
             category_cbx.DataSource = dt;
@@ -294,7 +311,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
 
         private void getItemExpirationDate()
         {
-            string selectedValue = item_name_cbx.Text;
+            string selectedValue = item_name_tb.Text;
             ProductsTableAdapter pr = new ProductsTableAdapter();
             ProductsDataSet.ProductsDataTable dt = pr.getExpirationDate(selectedValue);
             if (dt.Rows.Count > 0)
@@ -323,7 +340,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
 
         private void getPrice()
         {
-            string selectedValue = item_name_cbx.Text;
+            string selectedValue = item_name_tb.Text;
             // Now you can work with the selected value (item name) as needed
 
             if (selectedValue != null || String.IsNullOrEmpty(selectedValue))
@@ -342,7 +359,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
 
         private void getItemTotalStocks()
         {
-            string selectedValue = item_name_cbx.Text;
+            string selectedValue = item_name_tb.Text;
             // Now you can work with the selected value (item name) as needed
 
             if (selectedValue != null || String.IsNullOrEmpty(selectedValue))
@@ -356,22 +373,6 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
                     total_stocks = int.Parse(row.CurrentStocks.ToString());
                 }
             }
-        }
-
-        private void item_name_cbx_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            getItemCategory();
-            getPrice();
-            getItemExpirationDate();
-            getItemTotalStocks();
-        }
-
-        private void item_name_cbx_TextChanged(object sender, EventArgs e)
-        {
-            getItemCategory();
-            getPrice();
-            getItemExpirationDate();
-            getItemTotalStocks();
         }
 
         private void current_stocks_tb_OnValueChanged(object sender, EventArgs e)
@@ -410,83 +411,167 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus.InventoryForms
 
             // Create a new DataTable with only the desired columns
             DataTable filteredTable = new DataTable();
+            filteredTable.Columns.Add("ID");
             filteredTable.Columns.Add("Description");
+            filteredTable.Columns.Add("Category");
             filteredTable.Columns.Add("Total Inventory");
             filteredTable.Columns.Add("Inventory End");
             filteredTable.Columns.Add("Quantity Sold");
             filteredTable.Columns.Add("Unit Price");
             filteredTable.Columns.Add("Cash Sales");
-            filteredTable.Columns.Add("Warning", typeof(Image));
-            filteredTable.Columns.Add("Edit", typeof(Image));
-            filteredTable.Columns.Add("Delete", typeof(Image));
+            filteredTable.Columns.Add("Warning", typeof(System.Drawing.Image));
+            filteredTable.Columns.Add("Delete", typeof(System.Drawing.Image));
 
             // Populate the filtered DataTable with the selected columns from the original DataTable
             foreach (InvProduct.InventoryProducts1Row row in dt.Rows)
             {
-                // Fetch the quantity sold for the current item from the "DailySales" table
-                //DailySalesTableAdapter dailySales = new DailySalesTableAdapter();
-                //
-                //double cashSales = double.Parse(dailySales.getCashSales(row.Item).GetValueOrDefault().ToString());
+                int totalInventory = row.InventoryEnd + row.InventoryBeg;
+
+                // Check if the inventoryEndNow is from yesterday
+                DateTime currentDate = DateTime.Now;
+                DateTime yesterday = currentDate.AddDays(-1);
+                DateTime inventoryEndNowDate = row.DateAdded; // Assuming there is a Date column in your data
+                bool isYesterday = inventoryEndNowDate.Date == yesterday.Date;
+
+                int inventoryEndNow;
+
+                if (isYesterday)
+                {
+                    // Set inventoryEndNow to inventoryBeg value if it's from yesterday
+                    inventoryEndNow = row.InventoryBeg;
+                }
+                else
+                {
+                    // Calculate inventoryEndNow as usual
+                    inventoryEndNow = getEndInventory(totalInventory, row.QuantitySold);
+                }
 
                 // Check if currentStocks is below 10
                 if (row.CurrentStocks < 10)
                 {
-                    filteredTable.Rows.Add(row.Item, row.TotalStocks, row.CurrentStocks, row.QuantitySold, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.UnitPrice), string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.CashSales), Properties.Resources.warning_small, Properties.Resources.edit_small, Properties.Resources.trash);
-
+                    filteredTable.Rows.Add(
+                        row.ID, row.Item,
+                        row.Category,
+                        totalInventory,
+                        row.InventoryEndNow,
+                        row.QuantitySold,
+                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}",
+                        row.UnitPrice),
+                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}",
+                        row.CashSales),
+                        Properties.Resources.warning_small,
+                        Properties.Resources.trash);
                 }
                 else
                 {
-                    filteredTable.Rows.Add(row.Item, row.TotalStocks, row.CurrentStocks, row.QuantitySold, string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.UnitPrice), string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.CashSales), Properties.Resources.badge_check, Properties.Resources.badge_check, Properties.Resources.trash);
+                    filteredTable.Rows.Add(
+                        row.ID,
+                        row.Item,
+                        row.Category,
+                        totalInventory,
+                        row.InventoryEndNow,
+                        row.QuantitySold,
+                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.UnitPrice),
+                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.CashSales),
+                        Properties.Resources.badge_check,
+                        Properties.Resources.trash);
                 }
             }
 
             myDTG.DataSource = filteredTable;
 
             // Set the column headers
-            myDTG.Columns[0].HeaderText = "Description";
-            myDTG.Columns[1].HeaderText = "Total Inventory";
-            myDTG.Columns[2].HeaderText = "Inventory End";
-            myDTG.Columns[3].HeaderText = "Quantity Sold";
-            myDTG.Columns[4].HeaderText = "Unit Price";
-            myDTG.Columns[5].HeaderText = "Cash Sales";
-            myDTG.Columns[6].HeaderText = "Warning";
-            myDTG.Columns[7].HeaderText = "Edit";
-            myDTG.Columns[8].HeaderText = "Delete";
+            myDTG.Columns[0].HeaderText = "ID";
+            myDTG.Columns[1].HeaderText = "Description";
+            myDTG.Columns[2].HeaderText = "Category";
+            myDTG.Columns[3].HeaderText = "Total Inventory";
+            myDTG.Columns[4].HeaderText = "Inventory End";
+            myDTG.Columns[5].HeaderText = "Quantity Sold";
+            myDTG.Columns[6].HeaderText = "Unit Price";
+            myDTG.Columns[7].HeaderText = "Cash Sales";
+            myDTG.Columns[8].HeaderText = "Warning";
+            myDTG.Columns[9].HeaderText = "Delete";
 
             // Set the column widths
-            myDTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            myDTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            myDTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            myDTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            myDTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            myDTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            myDTG.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            myDTG.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            myDTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
+            myDTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            myDTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            myDTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            myDTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            myDTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            myDTG.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            myDTG.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             myDTG.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            myDTG.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
-            // Set the padding and size of the icon
-            myDTG.Columns[6].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
-            myDTG.Columns[6].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
-            myDTG.Columns[6].Width = 30; // Adjust the width of the icon column
-
-            // Set the padding and size of the icon
-            myDTG.Columns[7].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
-            myDTG.Columns[7].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
-            myDTG.Columns[7].Width = 30; // Adjust the width of the icon column
+            myDTG.Columns[0].Visible = false;
 
             // Set the padding and size of the icon
             myDTG.Columns[8].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
             myDTG.Columns[8].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
             myDTG.Columns[8].Width = 30; // Adjust the width of the icon column
+
+            // Set the padding and size of the icon
+            myDTG.Columns[9].DefaultCellStyle.Padding = new Padding(5, 5, 5, 5); // Adjust the padding values to resize the icon
+            myDTG.Columns[9].DefaultCellStyle.NullValue = null; // Remove the default null value display for the image column
+            myDTG.Columns[9].Width = 30; // Adjust the width of the icon column
+
+            // Add the CellFormatting event to set the tooltip for the Warning column
+            myDTG.CellFormatting += (sender, e) =>
+            {
+                if (e.ColumnIndex == 8 && e.RowIndex >= 0 && e.RowIndex < myDTG.Rows.Count)
+                {
+                    DataGridViewCell cell = myDTG.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    string? invEndNow = myDTG.Rows[e.RowIndex].Cells["Inventory End"].Value.ToString();
+                    int currentStocks = int.Parse(invEndNow);
+
+                    if (currentStocks <= 9)
+                    {
+                        cell.ToolTipText = myDTG.Rows[e.RowIndex].Cells["Description"].Value.ToString() + " is low stock.";
+                    }
+                    else
+                    {
+                        cell.ToolTipText = myDTG.Rows[e.RowIndex].Cells["Description"].Value.ToString() + " has stocks available.";
+                    }
+                }
+                else if (e.ColumnIndex == 9 && e.RowIndex >= 0 && e.RowIndex < myDTG.Rows.Count)
+                {
+                    DataGridViewCell cell = myDTG.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    cell.ToolTipText = "Delete " + myDTG.Rows[e.RowIndex].Cells["Description"].Value.ToString() + "?";
+                }
+            };
+
+            // Add the CellMouseEnter event to change the cursor to a hand cursor
+            myDTG.CellMouseEnter += (sender, e) =>
+            {
+                if (e.ColumnIndex == 9 && e.RowIndex >= 0 && e.RowIndex < myDTG.Rows.Count)
+                {
+                    myDTG.Cursor = Cursors.Hand;
+                }
+            };
+
+            // Add the CellMouseLeave event to revert the cursor to the default cursor
+            myDTG.CellMouseLeave += (sender, e) =>
+            {
+                myDTG.Cursor = Cursors.Default;
+            };
         }
 
-        private void update_btn_Click(object sender, EventArgs e)
+        private int getEndInventory(int no, int quantitySold)
         {
-            using (FRM_Wait frm_wait = new FRM_Wait(Wait))
+            if (no == 0)
             {
-                frm_wait.ShowDialog(this);
+                return 0;
             }
-            updateProducts(item);
+            return no - quantitySold;
+        }
+
+        private void item_name_tb_OnValueChanged(object sender, EventArgs e)
+        {
+            getItemCategory();
+            getPrice();
+            getItemExpirationDate();
+            getItemTotalStocks();
         }
     }
 }

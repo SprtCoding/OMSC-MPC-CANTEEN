@@ -42,6 +42,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>UserDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Update="UserData\DataSets\UserLogsDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserLogsDataSet.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -67,6 +72,10 @@
     <None Update="UserData\DataSets\UserDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>UserDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="UserData\DataSets\UserLogsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>UserLogsDataSet.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

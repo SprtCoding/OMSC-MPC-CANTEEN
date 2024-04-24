@@ -4040,7 +4040,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[30];
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[32];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT ID, Item, QuantitySold, InventoryEnd, InventoryEndNow, InventoryBeg, Curre" +
@@ -4075,170 +4075,181 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
             this._commandCollection[5].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[6] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[6].Connection = this.Connection;
-            this._commandCollection[6].CommandText = "SELECT Profit FROM InventoryProducts WHERE (ID = ?)";
+            this._commandCollection[6].CommandText = @"SELECT ID, Item, QuantitySold, InventoryEnd, InventoryEndNow, InventoryBeg, CurrentStocks, TotalStocks, Profit, CashSales, TotalAmount, Category, UnitPrice, Price, DateAdded, TimeAdded, DaysAdded, MonthsAdded, YearAdded FROM InventoryProducts WHERE YearAdded = ? AND MonthsAdded = ?";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[6].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[6].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("YearAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "YearAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[6].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MonthsAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MonthsAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[7] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[7].Connection = this.Connection;
-            this._commandCollection[7].CommandText = "SELECT QuantitySold FROM InventoryProducts WHERE (ID = ?)";
+            this._commandCollection[7].CommandText = "SELECT Profit FROM InventoryProducts WHERE (ID = ?)";
             this._commandCollection[7].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[7].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[8] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[8].Connection = this.Connection;
-            this._commandCollection[8].CommandText = "SELECT CurrentStocks, TotalStocks FROM InventoryProducts WHERE (ID = ?)";
+            this._commandCollection[8].CommandText = "SELECT QuantitySold FROM InventoryProducts WHERE (ID = ?)";
             this._commandCollection[8].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[8].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[9] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[9].Connection = this.Connection;
-            this._commandCollection[9].CommandText = "SELECT InventoryEnd FROM InventoryProducts WHERE (DateAdded = ?) AND (ID = ?)";
+            this._commandCollection[9].CommandText = "SELECT CurrentStocks, TotalStocks FROM InventoryProducts WHERE (ID = ?)";
             this._commandCollection[9].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[9].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DateAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DateAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[9].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[10] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[10].Connection = this.Connection;
-            this._commandCollection[10].CommandText = "SELECT DateAdded FROM InventoryProducts WHERE (ID = ?)";
+            this._commandCollection[10].CommandText = "SELECT InventoryEnd FROM InventoryProducts WHERE (DateAdded = ?) AND (ID = ?)";
             this._commandCollection[10].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[10].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DateAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DateAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[10].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[11] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[11].Connection = this.Connection;
-            this._commandCollection[11].CommandText = "SELECT DISTINCT MonthsAdded FROM InventoryProducts";
+            this._commandCollection[11].CommandText = "SELECT DateAdded FROM InventoryProducts WHERE (ID = ?)";
             this._commandCollection[11].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[11].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[12] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[12].Connection = this.Connection;
-            this._commandCollection[12].CommandText = "SELECT DISTINCT MonthsAdded FROM InventoryProducts WHERE MonthsAdded = ?";
+            this._commandCollection[12].CommandText = "SELECT DISTINCT MonthsAdded FROM InventoryProducts";
             this._commandCollection[12].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[12].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MonthsAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MonthsAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[13] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[13].Connection = this.Connection;
-            this._commandCollection[13].CommandText = "SELECT DISTINCT MonthsAdded FROM InventoryProducts WHERE YearAdded = ?";
+            this._commandCollection[13].CommandText = "SELECT DISTINCT MonthsAdded FROM InventoryProducts WHERE MonthsAdded = ?";
             this._commandCollection[13].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[13].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("YearAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "YearAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[13].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MonthsAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MonthsAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[14] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[14].Connection = this.Connection;
-            this._commandCollection[14].CommandText = "SELECT SUM(CashSales) FROM InventoryProducts";
+            this._commandCollection[14].CommandText = "SELECT DISTINCT MonthsAdded FROM InventoryProducts WHERE YearAdded = ?";
             this._commandCollection[14].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[14].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("YearAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "YearAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[15] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[15].Connection = this.Connection;
-            this._commandCollection[15].CommandText = "SELECT SUM(CashSales) FROM InventoryProducts WHERE MonthsAdded = ?";
+            this._commandCollection[15].CommandText = "SELECT SUM(CashSales) FROM InventoryProducts";
             this._commandCollection[15].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[15].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MonthsAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MonthsAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[16] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[16].Connection = this.Connection;
-            this._commandCollection[16].CommandText = "SELECT SUM(CashSales) FROM InventoryProducts WHERE YearAdded = ?";
+            this._commandCollection[16].CommandText = "SELECT SUM(CashSales) FROM InventoryProducts WHERE MonthsAdded = ?";
             this._commandCollection[16].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[16].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("YearAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "YearAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[16].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MonthsAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MonthsAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[17] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[17].Connection = this.Connection;
-            this._commandCollection[17].CommandText = "SELECT SUM(Profit) FROM InventoryProducts";
+            this._commandCollection[17].CommandText = "SELECT SUM(CashSales) FROM InventoryProducts WHERE YearAdded = ?";
             this._commandCollection[17].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[17].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("YearAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "YearAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[18] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[18].Connection = this.Connection;
-            this._commandCollection[18].CommandText = "SELECT SUM(CashSales) FROM InventoryProducts WHERE Category = ?";
+            this._commandCollection[18].CommandText = "SELECT SUM(Profit) FROM InventoryProducts";
             this._commandCollection[18].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[18].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Category", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Category", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[19] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[19].Connection = this.Connection;
-            this._commandCollection[19].CommandText = @"INSERT INTO `InventoryProducts` (`Item`, `QuantitySold`, `InventoryEnd`, `InventoryEndNow`, `InventoryBeg`, `CurrentStocks`, `TotalStocks`, `Profit`, `CashSales`, `TotalAmount`, `Category`, `UnitPrice`, `Price`, `DateAdded`, `TimeAdded`, `DaysAdded`, `MonthsAdded`, `YearAdded`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            this._commandCollection[19].CommandText = "SELECT SUM(CashSales) FROM InventoryProducts WHERE Category = ?";
             this._commandCollection[19].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Item", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("QuantitySold", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "QuantitySold", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEnd", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEnd", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEndNow", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEndNow", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryBeg", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryBeg", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CurrentStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CurrentStocks", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TotalStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalStocks", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Profit", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "Profit", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CashSales", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "CashSales", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TotalAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "TotalAmount", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Category", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Category", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("UnitPrice", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "UnitPrice", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Price", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "Price", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DateAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DateAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TimeAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TimeAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DaysAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DaysAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MonthsAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MonthsAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[19].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("YearAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "YearAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[20] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[20].Connection = this.Connection;
-            this._commandCollection[20].CommandText = "UPDATE `InventoryProducts` SET `CashSales` = ? WHERE ID= ?";
+            this._commandCollection[20].CommandText = @"INSERT INTO `InventoryProducts` (`Item`, `QuantitySold`, `InventoryEnd`, `InventoryEndNow`, `InventoryBeg`, `CurrentStocks`, `TotalStocks`, `Profit`, `CashSales`, `TotalAmount`, `Category`, `UnitPrice`, `Price`, `DateAdded`, `TimeAdded`, `DaysAdded`, `MonthsAdded`, `YearAdded`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             this._commandCollection[20].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Item", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("QuantitySold", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "QuantitySold", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEnd", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEnd", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEndNow", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEndNow", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryBeg", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryBeg", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CurrentStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CurrentStocks", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TotalStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalStocks", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Profit", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "Profit", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CashSales", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "CashSales", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TotalAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "TotalAmount", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Category", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Category", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("UnitPrice", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "UnitPrice", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Price", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "Price", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DateAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DateAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TimeAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TimeAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DaysAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DaysAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MonthsAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MonthsAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[20].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("YearAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "YearAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[21] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[21].Connection = this.Connection;
-            this._commandCollection[21].CommandText = "UPDATE `InventoryProducts` SET `InventoryBeg` = ?, `InventoryEndNow` = ?, `Curren" +
-                "tStocks` = ?, `TotalStocks` = ?, `DateAdded` = ?, `TimeAdded` = ?, `DaysAdded` =" +
-                " ?, `MonthsAdded` = ?, `YearAdded` = ? WHERE ID= ?";
+            this._commandCollection[21].CommandText = "SELECT COUNT(*) FROM InventoryProducts WHERE Item = ?";
             this._commandCollection[21].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[21].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryBeg", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryBeg", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[21].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEndNow", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEndNow", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[21].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CurrentStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CurrentStocks", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[21].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TotalStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalStocks", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[21].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DateAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DateAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[21].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TimeAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TimeAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[21].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DaysAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DaysAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[21].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MonthsAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MonthsAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[21].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("YearAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "YearAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[21].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._commandCollection[21].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Item", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Item", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[22] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[22].Connection = this.Connection;
-            this._commandCollection[22].CommandText = "UPDATE `InventoryProducts` SET `InventoryBeg` = ? WHERE ID= ?";
+            this._commandCollection[22].CommandText = "UPDATE `InventoryProducts` SET `CashSales` = ? WHERE ID= ?";
             this._commandCollection[22].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[22].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryBeg", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryBeg", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[22].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CashSales", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "CashSales", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[22].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._commandCollection[23] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[23].Connection = this.Connection;
-            this._commandCollection[23].CommandText = "UPDATE `InventoryProducts` SET `InventoryEnd` = ? WHERE ID= ?";
+            this._commandCollection[23].CommandText = "UPDATE `InventoryProducts` SET `InventoryBeg` = ?, `InventoryEndNow` = ?, `Curren" +
+                "tStocks` = ?, `TotalStocks` = ?, `DateAdded` = ?, `TimeAdded` = ?, `DaysAdded` =" +
+                " ?, `MonthsAdded` = ?, `YearAdded` = ? WHERE ID= ?";
             this._commandCollection[23].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[23].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEnd", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEnd", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[23].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryBeg", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryBeg", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[23].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEndNow", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEndNow", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[23].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CurrentStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CurrentStocks", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[23].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TotalStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalStocks", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[23].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DateAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DateAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[23].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TimeAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TimeAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[23].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DaysAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DaysAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[23].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MonthsAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MonthsAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[23].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("YearAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "YearAdded", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[23].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._commandCollection[24] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[24].Connection = this.Connection;
-            this._commandCollection[24].CommandText = "UPDATE `InventoryProducts` SET `QuantitySold` = ?, `InventoryEndNow` = ?, `CashSa" +
-                "les` = ?, `DateAdded` = ?, `TimeAdded` = ?, `DaysAdded` = ?, `MonthsAdded` = ?, " +
-                "`YearAdded` = ?, `CurrentStocks` = ?, `InventoryBeg` = ? WHERE ID = ?";
+            this._commandCollection[24].CommandText = "UPDATE `InventoryProducts` SET `InventoryBeg` = ? WHERE ID= ?";
             this._commandCollection[24].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[24].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("QuantitySold", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "QuantitySold", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[24].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEndNow", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEndNow", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[24].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CashSales", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "CashSales", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[24].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DateAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DateAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[24].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TimeAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TimeAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[24].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DaysAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DaysAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[24].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MonthsAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MonthsAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[24].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("YearAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "YearAdded", global::System.Data.DataRowVersion.Current, false, null));
-            this._commandCollection[24].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CurrentStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CurrentStocks", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[24].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryBeg", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryBeg", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[24].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._commandCollection[25] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[25].Connection = this.Connection;
-            this._commandCollection[25].CommandText = "UPDATE `InventoryProducts` SET `InventoryEndNow` = ? WHERE ID= ?";
+            this._commandCollection[25].CommandText = "UPDATE `InventoryProducts` SET `InventoryEnd` = ? WHERE ID= ?";
             this._commandCollection[25].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[25].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEndNow", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEndNow", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[25].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEnd", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEnd", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[25].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._commandCollection[26] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[26].Connection = this.Connection;
-            this._commandCollection[26].CommandText = "UPDATE `InventoryProducts` SET `Profit` = ? WHERE ID= ?";
+            this._commandCollection[26].CommandText = "UPDATE `InventoryProducts` SET `QuantitySold` = ?, `InventoryEndNow` = ?, `CashSa" +
+                "les` = ?, `DateAdded` = ?, `TimeAdded` = ?, `DaysAdded` = ?, `MonthsAdded` = ?, " +
+                "`YearAdded` = ?, `CurrentStocks` = ?, `InventoryBeg` = ? WHERE ID = ?";
             this._commandCollection[26].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Profit", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "Profit", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("QuantitySold", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "QuantitySold", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEndNow", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEndNow", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CashSales", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "CashSales", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DateAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DateAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TimeAdded", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TimeAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DaysAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DaysAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MonthsAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MonthsAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("YearAdded", global::System.Data.OleDb.OleDbType.WChar, 255, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "YearAdded", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CurrentStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CurrentStocks", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryBeg", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryBeg", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[26].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._commandCollection[27] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[27].Connection = this.Connection;
-            this._commandCollection[27].CommandText = "UPDATE `InventoryProducts` SET `QuantitySold` = ? WHERE ID= ?";
+            this._commandCollection[27].CommandText = "UPDATE `InventoryProducts` SET `InventoryEndNow` = ? WHERE ID= ?";
             this._commandCollection[27].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[27].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("QuantitySold", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "QuantitySold", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[27].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("InventoryEndNow", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "InventoryEndNow", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[27].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._commandCollection[28] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[28].Connection = this.Connection;
-            this._commandCollection[28].CommandText = "UPDATE `InventoryProducts` SET `TotalStocks` = ? WHERE ID= ?";
+            this._commandCollection[28].CommandText = "UPDATE `InventoryProducts` SET `Profit` = ? WHERE ID= ?";
             this._commandCollection[28].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[28].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TotalStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalStocks", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[28].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Profit", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "Profit", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[28].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._commandCollection[29] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[29].Connection = this.Connection;
-            this._commandCollection[29].CommandText = "UPDATE `InventoryProducts` SET `UnitPrice` = ? WHERE ID= ?";
+            this._commandCollection[29].CommandText = "UPDATE `InventoryProducts` SET `QuantitySold` = ? WHERE ID= ?";
             this._commandCollection[29].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[29].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("UnitPrice", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "UnitPrice", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[29].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("QuantitySold", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "QuantitySold", global::System.Data.DataRowVersion.Current, false, null));
             this._commandCollection[29].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._commandCollection[30] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[30].Connection = this.Connection;
+            this._commandCollection[30].CommandText = "UPDATE `InventoryProducts` SET `TotalStocks` = ? WHERE ID= ?";
+            this._commandCollection[30].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[30].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TotalStocks", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalStocks", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[30].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._commandCollection[31] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[31].Connection = this.Connection;
+            this._commandCollection[31].CommandText = "UPDATE `InventoryProducts` SET `UnitPrice` = ? WHERE ID= ?";
+            this._commandCollection[31].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[31].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("UnitPrice", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(19)), ((byte)(0)), "UnitPrice", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[31].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4383,8 +4394,56 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillBy2(InvProduct.InventoryProducts1DataTable dataTable, int ID) {
+        public virtual int FillBy12(InvProduct.InventoryProducts1DataTable dataTable, string YearAdded, string MonthsAdded) {
             this.Adapter.SelectCommand = this.CommandCollection[6];
+            if ((YearAdded == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(YearAdded));
+            }
+            if ((MonthsAdded == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(MonthsAdded));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual InvProduct.InventoryProducts1DataTable GetDataByYearAndMonths(string YearAdded, string MonthsAdded) {
+            this.Adapter.SelectCommand = this.CommandCollection[6];
+            if ((YearAdded == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(YearAdded));
+            }
+            if ((MonthsAdded == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(MonthsAdded));
+            }
+            InvProduct.InventoryProducts1DataTable dataTable = new InvProduct.InventoryProducts1DataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy2(InvProduct.InventoryProducts1DataTable dataTable, int ID) {
+            this.Adapter.SelectCommand = this.CommandCollection[7];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4398,7 +4457,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual InvProduct.InventoryProducts1DataTable GetProfitById(int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[6];
+            this.Adapter.SelectCommand = this.CommandCollection[7];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             InvProduct.InventoryProducts1DataTable dataTable = new InvProduct.InventoryProducts1DataTable();
             this.Adapter.Fill(dataTable);
@@ -4410,7 +4469,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillBy3(InvProduct.InventoryProducts1DataTable dataTable, int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[7];
+            this.Adapter.SelectCommand = this.CommandCollection[8];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4424,7 +4483,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual InvProduct.InventoryProducts1DataTable GetQuantitySoldById(int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[7];
+            this.Adapter.SelectCommand = this.CommandCollection[8];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             InvProduct.InventoryProducts1DataTable dataTable = new InvProduct.InventoryProducts1DataTable();
             this.Adapter.Fill(dataTable);
@@ -4436,7 +4495,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillBy4(InvProduct.InventoryProducts1DataTable dataTable, int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[8];
+            this.Adapter.SelectCommand = this.CommandCollection[9];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4450,7 +4509,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual InvProduct.InventoryProducts1DataTable GetCurrentStocks(int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[8];
+            this.Adapter.SelectCommand = this.CommandCollection[9];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             InvProduct.InventoryProducts1DataTable dataTable = new InvProduct.InventoryProducts1DataTable();
             this.Adapter.Fill(dataTable);
@@ -4462,7 +4521,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillBy5(InvProduct.InventoryProducts1DataTable dataTable, global::System.Nullable<global::System.DateTime> DateAdded, int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[9];
+            this.Adapter.SelectCommand = this.CommandCollection[10];
             if ((DateAdded.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((System.DateTime)(DateAdded.Value));
             }
@@ -4482,7 +4541,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual InvProduct.InventoryProducts1DataTable GetInventoryEndForDate(global::System.Nullable<global::System.DateTime> DateAdded, int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[9];
+            this.Adapter.SelectCommand = this.CommandCollection[10];
             if ((DateAdded.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((System.DateTime)(DateAdded.Value));
             }
@@ -4500,7 +4559,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillBy6(InvProduct.InventoryProducts1DataTable dataTable, int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[10];
+            this.Adapter.SelectCommand = this.CommandCollection[11];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4514,7 +4573,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual InvProduct.InventoryProducts1DataTable GetDate(int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[10];
+            this.Adapter.SelectCommand = this.CommandCollection[11];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             InvProduct.InventoryProducts1DataTable dataTable = new InvProduct.InventoryProducts1DataTable();
             this.Adapter.Fill(dataTable);
@@ -4526,7 +4585,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillBy7(InvProduct.InventoryProducts1DataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[11];
+            this.Adapter.SelectCommand = this.CommandCollection[12];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -4539,7 +4598,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual InvProduct.InventoryProducts1DataTable GetDistinctMonths() {
-            this.Adapter.SelectCommand = this.CommandCollection[11];
+            this.Adapter.SelectCommand = this.CommandCollection[12];
             InvProduct.InventoryProducts1DataTable dataTable = new InvProduct.InventoryProducts1DataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -4550,7 +4609,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillBy8(InvProduct.InventoryProducts1DataTable dataTable, string MonthsAdded) {
-            this.Adapter.SelectCommand = this.CommandCollection[12];
+            this.Adapter.SelectCommand = this.CommandCollection[13];
             if ((MonthsAdded == null)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -4569,7 +4628,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual InvProduct.InventoryProducts1DataTable GetDistinctMonthsByMonth(string MonthsAdded) {
-            this.Adapter.SelectCommand = this.CommandCollection[12];
+            this.Adapter.SelectCommand = this.CommandCollection[13];
             if ((MonthsAdded == null)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -4586,7 +4645,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillBy9(InvProduct.InventoryProducts1DataTable dataTable, string YearAdded) {
-            this.Adapter.SelectCommand = this.CommandCollection[13];
+            this.Adapter.SelectCommand = this.CommandCollection[14];
             if ((YearAdded == null)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -4605,7 +4664,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual InvProduct.InventoryProducts1DataTable GetDistinctMonthsByYear(string YearAdded) {
-            this.Adapter.SelectCommand = this.CommandCollection[13];
+            this.Adapter.SelectCommand = this.CommandCollection[14];
             if ((YearAdded == null)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -5317,7 +5376,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual global::System.Nullable<decimal> getCashSalesAll() {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[14];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[15];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5345,7 +5404,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual global::System.Nullable<decimal> getCashSalesByMonth(string MonthsAdded) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[15];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[16];
             if ((MonthsAdded == null)) {
                 command.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -5379,7 +5438,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual global::System.Nullable<decimal> getCashSalesByYear(string YearAdded) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[16];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[17];
             if ((YearAdded == null)) {
                 command.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -5413,7 +5472,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual global::System.Nullable<decimal> getProfits() {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[17];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[18];
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5441,7 +5500,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual global::System.Nullable<decimal> getTotalCashSales(string Category) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[18];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[19];
             if ((Category == null)) {
                 command.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -5494,7 +5553,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
                     string DaysAdded, 
                     string MonthsAdded, 
                     string YearAdded) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[19];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[20];
             if ((Item == null)) {
                 command.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -5623,9 +5682,43 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual global::System.Nullable<int> InventoryExists(string Item) {
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[21];
+            if ((Item == null)) {
+                command.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[0].Value = ((string)(Item));
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            object returnValue;
+            try {
+                returnValue = command.ExecuteScalar();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
+                return new global::System.Nullable<int>();
+            }
+            else {
+                return new global::System.Nullable<int>(((int)(returnValue)));
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateCashSalesById(global::System.Nullable<decimal> CashSales, int Original_ID) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[20];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[22];
             if ((CashSales.HasValue == true)) {
                 command.Parameters[0].Value = ((decimal)(CashSales.Value));
             }
@@ -5655,7 +5748,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateInvBegById(global::System.Nullable<int> InventoryBeg, global::System.Nullable<int> InventoryEndNow, global::System.Nullable<int> CurrentStocks, global::System.Nullable<int> TotalStocks, global::System.Nullable<global::System.DateTime> DateAdded, global::System.Nullable<global::System.DateTime> TimeAdded, string DaysAdded, string MonthsAdded, string YearAdded, int Original_ID) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[21];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[23];
             if ((InventoryBeg.HasValue == true)) {
                 command.Parameters[0].Value = ((int)(InventoryBeg.Value));
             }
@@ -5733,7 +5826,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateInventoryBeg(global::System.Nullable<int> InventoryBeg, int Original_ID) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[22];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[24];
             if ((InventoryBeg.HasValue == true)) {
                 command.Parameters[0].Value = ((int)(InventoryBeg.Value));
             }
@@ -5763,7 +5856,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateInventoryEnd(global::System.Nullable<int> InventoryEnd, int Original_ID) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[23];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[25];
             if ((InventoryEnd.HasValue == true)) {
                 command.Parameters[0].Value = ((int)(InventoryEnd.Value));
             }
@@ -5793,7 +5886,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateInventoryEndNow(global::System.Nullable<int> QuantitySold, global::System.Nullable<int> InventoryEndNow, global::System.Nullable<decimal> CashSales, global::System.Nullable<global::System.DateTime> DateAdded, global::System.Nullable<global::System.DateTime> TimeAdded, string DaysAdded, string MonthsAdded, string YearAdded, global::System.Nullable<int> CurrentStocks, global::System.Nullable<int> InventoryBeg, int Original_ID) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[24];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[26];
             if ((QuantitySold.HasValue == true)) {
                 command.Parameters[0].Value = ((int)(QuantitySold.Value));
             }
@@ -5877,7 +5970,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateInventoryEndNowById(global::System.Nullable<int> InventoryEndNow, int Original_ID) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[25];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[27];
             if ((InventoryEndNow.HasValue == true)) {
                 command.Parameters[0].Value = ((int)(InventoryEndNow.Value));
             }
@@ -5907,7 +6000,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateProfitById(global::System.Nullable<decimal> Profit, int Original_ID) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[26];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[28];
             if ((Profit.HasValue == true)) {
                 command.Parameters[0].Value = ((decimal)(Profit.Value));
             }
@@ -5937,7 +6030,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateQuantitySoldById(global::System.Nullable<int> QuantitySold, int Original_ID) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[27];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[29];
             if ((QuantitySold.HasValue == true)) {
                 command.Parameters[0].Value = ((int)(QuantitySold.Value));
             }
@@ -5967,7 +6060,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateTotalStocksById(global::System.Nullable<int> TotalStocks, int Original_ID) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[28];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[30];
             if ((TotalStocks.HasValue == true)) {
                 command.Parameters[0].Value = ((int)(TotalStocks.Value));
             }
@@ -5997,7 +6090,7 @@ namespace OMSC_MPC_CANTEEN.UserData.DataSets.InvProductTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateUnitPriceById(global::System.Nullable<decimal> UnitPrice, int Original_ID) {
-            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[29];
+            global::System.Data.OleDb.OleDbCommand command = this.CommandCollection[31];
             if ((UnitPrice.HasValue == true)) {
                 command.Parameters[0].Value = ((decimal)(UnitPrice.Value));
             }

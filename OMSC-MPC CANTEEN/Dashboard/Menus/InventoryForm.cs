@@ -19,6 +19,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.Security.Cryptography;
 using DGVPrinterHelper;
+using OMSC_MPC_CANTEEN.Dashboard.Menus.PrintData;
 
 namespace OMSC_MPC_CANTEEN.Dashboard.Menus
 {
@@ -80,30 +81,30 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                 if (row.CurrentStocks < 10)
                 {
                     filteredTable.Rows.Add(
-                        row.ID, row.Item, 
-                        row.Category, 
-                        totalInventory, 
-                        row.InventoryEndNow, 
-                        row.QuantitySold, 
-                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", 
-                        row.UnitPrice), 
-                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", 
-                        row.CashSales), 
+                        row.ID, row.Item,
+                        row.Category,
+                        totalInventory,
+                        row.InventoryEndNow,
+                        row.QuantitySold,
+                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}",
+                        row.UnitPrice),
+                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}",
+                        row.CashSales),
                         Properties.Resources.warning_small,
                         Properties.Resources.trash);
                 }
                 else
                 {
                     filteredTable.Rows.Add(
-                        row.ID, 
-                        row.Item, 
-                        row.Category, 
-                        totalInventory, 
-                        row.InventoryEndNow, 
-                        row.QuantitySold, 
-                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.UnitPrice), 
-                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.CashSales), 
-                        Properties.Resources.badge_check, 
+                        row.ID,
+                        row.Item,
+                        row.Category,
+                        totalInventory,
+                        row.InventoryEndNow,
+                        row.QuantitySold,
+                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.UnitPrice),
+                        string.Format(CultureInfo.CreateSpecificCulture("en-PH"), "{0:C}", row.CashSales),
+                        Properties.Resources.badge_check,
                         Properties.Resources.trash);
                 }
             }
@@ -126,11 +127,11 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             INVENTORY_DTG.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet;
             INVENTORY_DTG.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             INVENTORY_DTG.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            INVENTORY_DTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            INVENTORY_DTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            INVENTORY_DTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            INVENTORY_DTG.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            INVENTORY_DTG.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            INVENTORY_DTG.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            INVENTORY_DTG.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            INVENTORY_DTG.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            INVENTORY_DTG.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            INVENTORY_DTG.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             INVENTORY_DTG.Columns[8].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             INVENTORY_DTG.Columns[9].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
@@ -167,7 +168,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                 else if (e.ColumnIndex == 9 && e.RowIndex >= 0 && e.RowIndex < INVENTORY_DTG.Rows.Count)
                 {
                     DataGridViewCell cell = INVENTORY_DTG.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                    cell.ToolTipText = "Delete Item";
+                    cell.ToolTipText = "Delete " + INVENTORY_DTG.Rows[e.RowIndex].Cells["Description"].Value.ToString() + "?";
                 }
             };
 
@@ -199,7 +200,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
 
         private void add_new_btn_Click(object sender, EventArgs e)
         {
-            AddInventory addNew = new AddInventory(INVENTORY_DTG, "");
+            AddInventory addNew = new AddInventory(INVENTORY_DTG);
             addNew.ShowDialog();
         }
 
@@ -251,27 +252,27 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
                     }
                 }
 
-                if (INVENTORY_DTG.Columns[e.ColumnIndex].Name == "Edit")
-                {
-                    // Check the cell value (image) to determine which icon was clicked
-                    DataGridViewImageCell cell = (DataGridViewImageCell)INVENTORY_DTG.Rows[e.RowIndex].Cells["Edit"];
-                    Image cellImage = (Image)cell.Value;
-
-                    if (cellImage != null)
-                    {
-
-                        byte[] editSmallBytes = ImageToByteArray(Properties.Resources.edit_small);
-                        byte[] cellImageBytes = ImageToByteArray(cellImage);
-
-                        bool imagesMatch = ByteArrayEquals(editSmallBytes, cellImageBytes);
-
-                        if (imagesMatch)
-                        {
-                            AddInventory addNew = new AddInventory(INVENTORY_DTG, item);
-                            addNew.ShowDialog();
-                        }
-                    }
-                }
+                //if (INVENTORY_DTG.Columns[e.ColumnIndex].Name == "Edit")
+                //{
+                //    // Check the cell value (image) to determine which icon was clicked
+                //    DataGridViewImageCell cell = (DataGridViewImageCell)INVENTORY_DTG.Rows[e.RowIndex].Cells["Edit"];
+                //    Image cellImage = (Image)cell.Value;
+                //
+                //    if (cellImage != null)
+                //    {
+                //
+                //        byte[] editSmallBytes = ImageToByteArray(Properties.Resources.edit_small);
+                //        byte[] cellImageBytes = ImageToByteArray(cellImage);
+                //
+                //        bool imagesMatch = ByteArrayEquals(editSmallBytes, cellImageBytes);
+                //
+                //        if (imagesMatch)
+                //        {
+                //            AddInventory addNew = new AddInventory(INVENTORY_DTG, item);
+                //            addNew.ShowDialog();
+                //        }
+                //    }
+                //}
             }
         }
 
@@ -282,7 +283,7 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
 
         private void print_btn_Click(object sender, EventArgs e)
         {
-            DGVPrinter printer = new DGVPrinter();
+            /*DGVPrinter printer = new DGVPrinter();
             printer.Title = "Inventory";
             printer.SubTitle = DateTime.Now.ToString("MM/dd/yyyy hh:mm tt");
             printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
@@ -299,7 +300,10 @@ namespace OMSC_MPC_CANTEEN.Dashboard.Menus
             {
                 INVENTORY_DTG.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             }
-            printer.PrintDataGridView(INVENTORY_DTG);
+            printer.PrintDataGridView(INVENTORY_DTG);*/
+
+            PrintPreview printPrev = new PrintPreview(INVENTORY_DTG, "", "Inventory");
+            printPrev.ShowDialog();
         }
     }
 }

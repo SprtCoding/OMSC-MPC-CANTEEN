@@ -63,7 +63,7 @@ namespace OMSC_MPC_CANTEEN.Auth
             {
                 // Save username, hashedPassword, and salt to the database
                 // ... your database code here ...
-                USERSTableAdapter user = new USERSTableAdapter();
+                USERS1TableAdapter user = new USERS1TableAdapter();
                 user.setUsers(
                     username,
                     username,
@@ -71,7 +71,12 @@ namespace OMSC_MPC_CANTEEN.Auth
                     salt,
                     name,
                     currentDateAndTime.ToLongDateString(),
-                    currentDateAndTime.ToLongTimeString());
+                    currentDateAndTime.ToLongTimeString(),
+                    false,
+                    "",
+                    "",
+                    "",
+                    "");
                 MessageBox.Show("Account Created Successfully.", "Create Account", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoginForm login = new LoginForm();
                 login.Show();

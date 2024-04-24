@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InventoryForm));
             tableLayoutPanel1 = new TableLayoutPanel();
             panel2 = new Panel();
@@ -55,79 +55,74 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 26.9434166F));
             tableLayoutPanel1.Controls.Add(panel2, 1, 0);
             tableLayoutPanel1.Controls.Add(panel1, 0, 0);
-            tableLayoutPanel1.Location = new Point(8, 7);
-            tableLayoutPanel1.Margin = new Padding(2);
+            tableLayoutPanel1.Location = new Point(11, 12);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(747, 56);
+            tableLayoutPanel1.Size = new Size(1067, 93);
             tableLayoutPanel1.TabIndex = 3;
             // 
             // panel2
             // 
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(547, 2);
-            panel2.Margin = new Padding(2);
+            panel2.Location = new Point(782, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(198, 52);
+            panel2.Size = new Size(282, 87);
             panel2.TabIndex = 1;
             // 
             // panel1
             // 
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(2, 2);
-            panel1.Margin = new Padding(2);
+            panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(541, 52);
+            panel1.Size = new Size(773, 87);
             panel1.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Poppins", 13F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(10, 11);
-            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Location = new Point(14, 18);
             label1.Name = "label1";
-            label1.Size = new Size(102, 31);
+            label1.Size = new Size(226, 46);
             label1.TabIndex = 1;
-            label1.Text = "Inventory";
+            label1.Text = "Daily Inventory";
             // 
             // INVENTORY_DTG
             // 
             INVENTORY_DTG.AllowUserToAddRows = false;
             INVENTORY_DTG.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(224, 224, 224);
-            INVENTORY_DTG.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
+            INVENTORY_DTG.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             INVENTORY_DTG.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             INVENTORY_DTG.BackgroundColor = SystemColors.Control;
             INVENTORY_DTG.BorderStyle = BorderStyle.None;
             INVENTORY_DTG.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(248, 195, 23);
-            dataGridViewCellStyle8.Font = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(250, 215, 100);
-            dataGridViewCellStyle8.SelectionForeColor = Color.DimGray;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            INVENTORY_DTG.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(248, 195, 23);
+            dataGridViewCellStyle2.Font = new Font("Poppins Medium", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(250, 215, 100);
+            dataGridViewCellStyle2.SelectionForeColor = Color.DimGray;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            INVENTORY_DTG.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             INVENTORY_DTG.ColumnHeadersHeight = 45;
             INVENTORY_DTG.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = SystemColors.Window;
-            dataGridViewCellStyle9.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(250, 215, 100);
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
-            INVENTORY_DTG.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Window;
+            dataGridViewCellStyle3.Font = new Font("Poppins", 8F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(250, 215, 100);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            INVENTORY_DTG.DefaultCellStyle = dataGridViewCellStyle3;
             INVENTORY_DTG.DoubleBuffered = true;
             INVENTORY_DTG.EnableHeadersVisualStyles = false;
             INVENTORY_DTG.GridColor = Color.FromArgb(250, 215, 100);
             INVENTORY_DTG.HeaderBgColor = Color.FromArgb(248, 195, 23);
             INVENTORY_DTG.HeaderForeColor = SystemColors.ControlText;
-            INVENTORY_DTG.Location = new Point(8, 112);
-            INVENTORY_DTG.Margin = new Padding(2);
+            INVENTORY_DTG.Location = new Point(11, 187);
             INVENTORY_DTG.Name = "INVENTORY_DTG";
             INVENTORY_DTG.ReadOnly = true;
             INVENTORY_DTG.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -135,7 +130,7 @@
             INVENTORY_DTG.RowHeadersWidth = 62;
             INVENTORY_DTG.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             INVENTORY_DTG.RowTemplate.Height = 33;
-            INVENTORY_DTG.Size = new Size(747, 441);
+            INVENTORY_DTG.Size = new Size(1067, 735);
             INVENTORY_DTG.TabIndex = 4;
             INVENTORY_DTG.CellContentClick += INVENTORY_DTG_CellContentClick;
             // 
@@ -162,14 +157,14 @@
             add_new_btn.IconVisible = true;
             add_new_btn.IconZoom = 35D;
             add_new_btn.IsTab = false;
-            add_new_btn.Location = new Point(658, 78);
-            add_new_btn.Margin = new Padding(3, 2, 3, 2);
+            add_new_btn.Location = new Point(940, 130);
+            add_new_btn.Margin = new Padding(4, 3, 4, 3);
             add_new_btn.Name = "add_new_btn";
             add_new_btn.Normalcolor = Color.FromArgb(46, 139, 87);
             add_new_btn.OnHovercolor = Color.FromArgb(36, 129, 77);
             add_new_btn.OnHoverTextColor = Color.White;
             add_new_btn.selected = false;
-            add_new_btn.Size = new Size(95, 29);
+            add_new_btn.Size = new Size(136, 48);
             add_new_btn.TabIndex = 9;
             add_new_btn.Text = "Add New";
             add_new_btn.TextAlign = ContentAlignment.MiddleRight;
@@ -181,10 +176,9 @@
             // 
             print_btn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             print_btn.Image = (Image)resources.GetObject("print_btn.Image");
-            print_btn.Location = new Point(628, 82);
-            print_btn.Margin = new Padding(2);
+            print_btn.Location = new Point(897, 137);
             print_btn.Name = "print_btn";
-            print_btn.Size = new Size(25, 25);
+            print_btn.Size = new Size(36, 42);
             print_btn.SizeMode = PictureBoxSizeMode.Zoom;
             print_btn.TabIndex = 10;
             print_btn.TabStop = false;
@@ -193,15 +187,14 @@
             // 
             // InventoryForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(763, 560);
+            ClientSize = new Size(1090, 933);
             Controls.Add(print_btn);
             Controls.Add(add_new_btn);
             Controls.Add(INVENTORY_DTG);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(2);
             Name = "InventoryForm";
             Text = "/";
             tableLayoutPanel1.ResumeLayout(false);

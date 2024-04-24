@@ -1,17 +1,21 @@
 ﻿using OMSC_MPC_CANTEEN.Dashboard;
 using OMSC_MPC_CANTEEN.Loaders;
 using OMSC_MPC_CANTEEN.UserData.DataSets;
+using OMSC_MPC_CANTEEN.UserData.DataSets.ProductsDataSetTableAdapters;
 using OMSC_MPC_CANTEEN.UserData.DataSets.UserDataSetTableAdapters;
+using OMSC_MPC_CANTEEN.UserData.DataSets.UserLogsDataSetTableAdapters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace OMSC_MPC_CANTEEN.Auth
 {
@@ -21,6 +25,14 @@ namespace OMSC_MPC_CANTEEN.Auth
         {
             InitializeComponent();
         }
+
+        //private bool isUserLogin(bool isLogin)
+        //{
+        //    // Check if the product already exists in the database
+        //    USERS1TableAdapter users = new USERS1TableAdapter();
+        //    int count = Convert.ToInt32(users.checkIfLogin(isLogin));
+        //    return count > 0;
+        //}
 
         void Wait()
         {
@@ -59,8 +71,8 @@ namespace OMSC_MPC_CANTEEN.Auth
             {
                 // Save username, hashedPassword, and salt to the database
                 // ... your database code here ...
-                USERSTableAdapter user = new USERSTableAdapter();
-                UserDataSet.USERSDataTable dt = user.getHashPassword(
+                USERS1TableAdapter user = new USERS1TableAdapter();
+                UserDataSet.USERS1DataTable dt = user.getHashPassword(
                         username
                     );
                 if (dt.Rows.Count > 0)
@@ -71,8 +83,39 @@ namespace OMSC_MPC_CANTEEN.Auth
 
                     if (pass == hashPassword)
                     {
-                        MessageBox.Show("Login Successfully.", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Dashboard.Dashboard dashboard = new Dashboard.Dashboard(username);
+                        string newUID = Guid.NewGuid().ToString();
+                        DateTime currentDate = DateTime.Now;
+
+                        // Format time as "10:00 am"
+                        string formattedTime = currentDate.ToString("hh:mm tt");
+
+                        // Format date as "Jan 20, 2023"
+                        string formattedDate = currentDate.ToString("MMM dd, yyyy");
+                        DateTime parsedTime = DateTime.ParseExact(formattedTime, "hh:mm tt", CultureInfo.InvariantCulture);
+                        DateTime parsedDate = DateTime.ParseExact(formattedDate, "MMM dd, yyyy", CultureInfo.InvariantCulture);
+
+                        UserLogsTableAdapter userAdapter = new UserLogsTableAdapter();
+                        USERS1TableAdapter userTAdapter = new USERS1TableAdapter();
+
+                        userTAdapter.setLogs(
+                                true,
+                                formattedTime,
+                                "",
+                                formattedDate,
+                                "",
+                                username
+                            );
+
+                        userAdapter.setLogs(
+                                newUID,
+                                username,
+                                true,
+                                formattedTime,
+                                "",
+                                formattedDate
+                            );
+
+                        Dashboard.Dashboard dashboard = new Dashboard.Dashboard(username, newUID);
                         dashboard.Show();
                         Hide();
                     }
@@ -90,13 +133,6 @@ namespace OMSC_MPC_CANTEEN.Auth
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void register_btn_Click(object sender, EventArgs e)
-        {
-            ResgisterUser reg = new ResgisterUser();
-            reg.Show();
-            Hide();
         }
 
         private void login_btn_Click(object sender, EventArgs e)

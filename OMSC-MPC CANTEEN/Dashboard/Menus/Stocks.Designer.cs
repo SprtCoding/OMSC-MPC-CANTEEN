@@ -100,12 +100,14 @@
             dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
             STOCKS_DTG.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             STOCKS_DTG.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            STOCKS_DTG.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            STOCKS_DTG.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             STOCKS_DTG.BackgroundColor = SystemColors.Control;
             STOCKS_DTG.BorderStyle = BorderStyle.None;
             STOCKS_DTG.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(248, 195, 23);
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle2.Font = new Font("Poppins Medium", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(250, 215, 100);
             dataGridViewCellStyle2.SelectionForeColor = Color.DimGray;
@@ -115,7 +117,7 @@
             STOCKS_DTG.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Century Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.Font = new Font("Poppins", 8F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(250, 215, 100);
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.WindowText;
